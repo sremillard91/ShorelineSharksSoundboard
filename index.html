@@ -19,17 +19,17 @@
   </header>
 
   <!-- Sticky controls -->
-<section class="controls" aria-label="Soundboard controls">
-  <div class="controls-inner">
-    <button class="ctl" id="stopAllBtn">Stop All</button>
-    <button class="ctl" id="fullscreenBtn">Fullscreen</button>
+<div class="controls-inner">
+  <button class="ctl" id="stopAllBtn" type="button">Stop All</button>
+  <button class="ctl" id="playPauseBtn" type="button">Play</button>
+  <button class="ctl" id="fullscreenBtn" type="button">Fullscreen</button>
 
-    <label class="volume">
-      <span>Vol</span>
-      <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="1" />
-    </label>
-  </div>
-</section>
+  <label class="volume">
+    <span>Vol</span>
+    <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="1" />
+  </label>
+</div>
+
 
 
 
@@ -42,11 +42,10 @@
       </div>
 
       <div class="pad-grid">
-		<button class="pad pad-goal" data-sound="GoalHorn" type="button">
+		  <button class="pad pad-goal" data-sound="GoalHorn" type="button">
           <span class="pad-title">Sharks Goal 🏒</span>
           <span class="pad-sub">After confirmed goals only</span>
         </button>
-
       </div>
     </section>
 
@@ -77,13 +76,13 @@
 <section class="group" aria-label="Short Music">
   <div class="group-header">
     <h2>MUSIC — SHORT</h2>
-    <p>5–10 second stings</p>
+    <p>30 Sec or Less</p>
   </div>
 
   <div class="pad-grid">
-    <button class="pad" data-sound="GoalSongShort" type="button">
-      <span class="pad-title">Song 1</span>
-      <span class="pad-sub">Short clip</span>
+    <button class="pad" data-sound="CEJShort" type="button">
+      <span class="pad-title">Cotton Eye Joe</span>
+      <span class="pad-sub">18 Sec</span>
     </button>
 
     <button class="pad" data-sound="CelebrateShort" type="button">
@@ -102,12 +101,12 @@
 <section class="group" aria-label="Full Music">
   <div class="group-header">
     <h2>MUSIC — FULL</h2>
-    <p>Warmups & breaks</p>
+    <p>Warmups & breaks (Full Songs)</p>
   </div>
 
   <div class="pad-grid">
-    <button class="pad" data-sound="WarmupsFull" type="button">
-      <span class="pad-title">Full Song 1</span>
+    <button class="pad" data-sound="CEJFull" type="button">
+      <span class="pad-title">Cotton Eye Joe</span>
       <span class="pad-sub">Full track</span>
     </button>
 
@@ -128,4 +127,3 @@
   <script src="js/script.js"></script>
 </body>
 </html>
-
