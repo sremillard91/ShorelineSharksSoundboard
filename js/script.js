@@ -1,33 +1,51 @@
 const pads = document.querySelectorAll(".pad");
 const volumeSlider = document.getElementById("volumeSlider");
 const stopAllBtn = document.getElementById("stopAllBtn");
-const allowOverlap = document.getElementById("allowOverlap");
 const fullscreenBtn = document.getElementById("fullscreenBtn");
 
 let activeAudios = [];
+let activeButtons = new Set();
 
 /**
  * Plays an MP3 from /sounds/<Name>.mp3
  * Name comes from the button attribute: data-sound="Name"
+ * Behavior: ALWAYS stop all currently playing audio before starting a new one.
+ * Adds a "playing" ring to the pressed pad while audio is playing.
  */
-function playSound(name) {
-  if (!allowOverlap.checked) stopAllSounds();
+function playSound(name, buttonEl) {
+  stopAllSounds();
 
-  const audio = new Audio(`sounds/${name}.mp3`);
+  const audio = new Audio(`audio/${name}.mp3`);
   audio.volume = Number(volumeSlider.value);
+
+  // Add active ring to the clicked button
+  if (buttonEl) {
+    buttonEl.classList.add("is-playing");
+    activeButtons.add(buttonEl);
+  }
 
   activeAudios.push(audio);
 
   audio.addEventListener("ended", () => {
+    // Remove ring when audio finishes
+    if (buttonEl) {
+      buttonEl.classList.remove("is-playing");
+      activeButtons.delete(buttonEl);
+    }
     activeAudios = activeAudios.filter(a => a !== audio);
   });
 
   audio.play().catch(() => {
-    // If a browser blocks playback for any reason, fail silently.
+    // If playback fails, remove ring
+    if (buttonEl) {
+      buttonEl.classList.remove("is-playing");
+      activeButtons.delete(buttonEl);
+    }
   });
 }
 
 function stopAllSounds() {
+  // Stop audio
   activeAudios.forEach(a => {
     try {
       a.pause();
@@ -35,13 +53,17 @@ function stopAllSounds() {
     } catch {}
   });
   activeAudios = [];
+
+  // Remove any active rings
+  activeButtons.forEach(btn => btn.classList.remove("is-playing"));
+  activeButtons.clear();
 }
 
 // Hook up pad clicks
 pads.forEach(btn => {
   btn.addEventListener("click", () => {
     const sound = btn.dataset.sound;
-    if (sound) playSound(sound);
+    if (sound) playSound(sound, btn);
   });
 });
 
@@ -61,7 +83,6 @@ function fullscreenSupported() {
 
 if (fullscreenBtn) {
   if (!fullscreenSupported()) {
-    // Hide the button if fullscreen isn't supported
     fullscreenBtn.style.display = "none";
   } else {
     fullscreenBtn.addEventListener("click", async () => {
