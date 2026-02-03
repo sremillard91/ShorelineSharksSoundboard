@@ -6,6 +6,16 @@ const fullscreenBtn = document.getElementById("fullscreenBtn");
 let activeAudios = [];
 let activeButtons = new Set();
 
+/* Keep controls stuck directly under the header on all devices */
+function updateStickyOffsets() {
+  const topbar = document.querySelector(".topbar");
+  if (!topbar) return;
+  document.documentElement.style.setProperty("--topbar-h", `${topbar.offsetHeight}px`);
+}
+
+window.addEventListener("load", updateStickyOffsets);
+window.addEventListener("resize", updateStickyOffsets);
+
 /**
  * Plays an MP3 from /sounds/<Name>.mp3
  * Name comes from the button attribute: data-sound="Name"
