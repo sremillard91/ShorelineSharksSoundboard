@@ -8,12 +8,11 @@
   --muted: rgba(255,255,255,0.75);
   --border: rgba(255,255,255,0.12);
 
-  /* Original goal-horn green */
+
   --green: rgba(17,168,90,0.45);
 
   --shadow: 0 10px 25px rgba(0,0,0,0.35);
 
-  /* JS sets this to the header height */
   --topbar-h: 0px;
 }
 
@@ -68,7 +67,7 @@ body{
 }
 
 /* =========================
-   CONTROLS (FULL WIDTH BAR)
+   CONTROLS
 ========================= */
 .controls{
   position: sticky;
@@ -81,7 +80,6 @@ body{
   border-bottom: 1px solid var(--border);
 }
 
-/* inner container aligns with header content width */
 .controls-inner{
   max-width: 980px;
   margin: 0 auto;
@@ -218,7 +216,6 @@ body{
 
 /* =========================
    SOUND & MUSIC PADS
-   (Original GOAL HORN look)
 ========================= */
 .pad{
   appearance: none;
@@ -307,3 +304,4 @@ body{
 @media (min-width: 1025px){
   .pad{ min-height: 115px; }
 }
+
