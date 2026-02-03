@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Shoreline Sharks Soundboard</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="images/sharkslogo.png" alt="Shoreline Sharks Logo" class="logo" />
+      <div class="titles">
+        <div class="team">Shoreline Sharks</div>
+        <div class="subtitle">Game Soundboard</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky controls -->
+  <section class="controls" aria-label="Soundboard controls">
+    <button class="ctl" id="stopAllBtn" type="button">Stop All</button>
+    <button class="ctl" id="fullscreenBtn" type="button">Fullscreen</button>
+
+    <label class="volume">
+      <span>Vol</span>
+      <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="1" />
+    </label>
+
+    <label class="toggle">
+      <input id="allowOverlap" type="checkbox" checked />
+      <span>Overlap</span>
+    </label>
+  </section>
+
+  <main class="board" aria-label="Soundboard pads">
+
+    <!-- SOUNDS SECTION -->
+    <section class="group" aria-label="Sounds">
+      <div class="group-header">
+        <h2>SOUNDS</h2>
+      </div>
+
+      <div class="pad-grid">
+        <button class="pad pad-goal" data-sound="GoalHorn" type="button">
+          <span class="pad-title">GOAL HORN</span>
+          <span class="pad-sub">Sharks Goal!</span>
+        </button>
+
+      </div>
+    </section>
+
+    <!-- PENALTIES SECTION -->
+    <section class="group" aria-label="Penalties">
+      <div class="group-header">
+        <h2>PENALTIES</h2>
+      </div>
+
+      <div class="pad-grid">
+        <button class="pad pad-penalty" data-sound="Penalty" type="button">
+          <span class="pad-title">Bad Boys</span>
+          <span class="pad-sub">🚨 Penalty Song</span>
+        </button>
+	  <button class="pad pad-penalty" data-sound="Penalty" type="button">
+          <span class="pad-title">Breaking the law</span>
+          <span class="pad-sub">🚨 Penalty Song</span>
+      </button>
+
+      </div>
+    </section>
+
+    <!-- MUSIC SECTION -->
+    <section class="group" aria-label="Music">
+      <div class="group-header">
+        <h2>MUSIC</h2>
+      </div>
+
+      <div class="pad-grid">
+        <button class="pad pad-music" data-sound="WarmupSong" type="button">
+          <span class="pad-title">WARMUP</span>
+          <span class="pad-sub">Track 1</span>
+        </button>
+
+        <button class="pad pad-music" data-sound="HypeSong" type="button">
+          <span class="pad-title">HYPE</span>
+          <span class="pad-sub">Track 2</span>
+        </button>
+
+        <button class="pad pad-music" data-sound="Intermission" type="button">
+          <span class="pad-title">INTERMISSION</span>
+          <span class="pad-sub">Track 3</span>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
