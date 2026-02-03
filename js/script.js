@@ -1,10 +1,13 @@
 const pads = document.querySelectorAll(".pad");
 const volumeSlider = document.getElementById("volumeSlider");
 const stopAllBtn = document.getElementById("stopAllBtn");
+const playPauseBtn = document.getElementById("playPauseBtn");
 const fullscreenBtn = document.getElementById("fullscreenBtn");
 
 let activeAudios = [];
 let activeButtons = new Set();
+let currentAudio = null;      // the one audio we’re playing (no-overlap mode)
+let currentButton = null;     // the pad associated with currentAudio
 
 /* Keep controls stuck directly under the header on all devices */
 function updateStickyOffsets() {
@@ -12,50 +15,71 @@ function updateStickyOffsets() {
   if (!topbar) return;
   document.documentElement.style.setProperty("--topbar-h", `${topbar.offsetHeight}px`);
 }
-
 window.addEventListener("load", updateStickyOffsets);
 window.addEventListener("resize", updateStickyOffsets);
 
-/**
- * Plays an MP3 from /sounds/<Name>.mp3
- * Name comes from the button attribute: data-sound="Name"
- * Behavior: ALWAYS stop all currently playing audio before starting a new one.
- * Adds a "playing" ring to the pressed pad while audio is playing.
- */
+function setPlayPauseLabel() {
+  if (!playPauseBtn) return;
+  if (currentAudio && !currentAudio.paused) playPauseBtn.textContent = "Pause";
+  else playPauseBtn.textContent = "Play";
+}
+
+function setPlaying(btn, isPlaying) {
+  if (!btn) return;
+  if (isPlaying) {
+    btn.classList.add("is-playing");
+    activeButtons.add(btn);
+  } else {
+    btn.classList.remove("is-playing");
+    activeButtons.delete(btn);
+  }
+}
+
 function playSound(name, buttonEl) {
   stopAllSounds();
 
   const audio = new Audio(`audio/${name}.mp3`);
   audio.volume = Number(volumeSlider.value);
 
-  // Add active ring to the clicked button
-  if (buttonEl) {
-    buttonEl.classList.add("is-playing");
-    activeButtons.add(buttonEl);
-  }
+  currentAudio = audio;
+  currentButton = buttonEl;
+
+  if (buttonEl) setPlaying(buttonEl, true);
 
   activeAudios.push(audio);
 
   audio.addEventListener("ended", () => {
-    // Remove ring when audio finishes
-    if (buttonEl) {
-      buttonEl.classList.remove("is-playing");
-      activeButtons.delete(buttonEl);
-    }
+    if (buttonEl) setPlaying(buttonEl, false);
     activeAudios = activeAudios.filter(a => a !== audio);
+
+    // clear current pointers
+    if (currentAudio === audio) {
+      currentAudio = null;
+      currentButton = null;
+      setPlayPauseLabel();
+    }
   });
 
-  audio.play().catch(() => {
-    // If playback fails, remove ring
-    if (buttonEl) {
-      buttonEl.classList.remove("is-playing");
-      activeButtons.delete(buttonEl);
-    }
+  audio.addEventListener("pause", () => {
+    setPlayPauseLabel();
+  });
+
+  audio.addEventListener("play", () => {
+    setPlayPauseLabel();
+  });
+
+  audio.play().then(() => {
+    setPlayPauseLabel();
+  }).catch(() => {
+    // playback failed, remove ring and clear current audio
+    if (buttonEl) setPlaying(buttonEl, false);
+    currentAudio = null;
+    currentButton = null;
+    setPlayPauseLabel();
   });
 }
 
 function stopAllSounds() {
-  // Stop audio
   activeAudios.forEach(a => {
     try {
       a.pause();
@@ -64,12 +88,15 @@ function stopAllSounds() {
   });
   activeAudios = [];
 
-  // Remove any active rings
   activeButtons.forEach(btn => btn.classList.remove("is-playing"));
   activeButtons.clear();
+
+  currentAudio = null;
+  currentButton = null;
+  setPlayPauseLabel();
 }
 
-// Hook up pad clicks
+/* Pads */
 pads.forEach(btn => {
   btn.addEventListener("click", () => {
     const sound = btn.dataset.sound;
@@ -77,16 +104,28 @@ pads.forEach(btn => {
   });
 });
 
-// Stop All button
+/* Stop All */
 stopAllBtn.addEventListener("click", stopAllSounds);
 
-// Live volume update
+/* Volume live updates */
 volumeSlider.addEventListener("input", () => {
   const v = Number(volumeSlider.value);
   activeAudios.forEach(a => a.volume = v);
 });
 
-// Fullscreen toggle (works on most desktop/tablet browsers; may be blocked on some mobile browsers)
+/* Play/Pause toggle */
+if (playPauseBtn) {
+  playPauseBtn.addEventListener("click", () => {
+    if (!currentAudio) return; // nothing to control
+    try {
+      if (currentAudio.paused) currentAudio.play();
+      else currentAudio.pause();
+    } catch {}
+  });
+  setPlayPauseLabel();
+}
+
+/* Fullscreen toggle */
 function fullscreenSupported() {
   return !!document.documentElement.requestFullscreen;
 }
@@ -102,9 +141,7 @@ if (fullscreenBtn) {
         } else {
           await document.exitFullscreen();
         }
-      } catch {
-        // Some browsers block fullscreen; ignore
-      }
+      } catch {}
     });
   }
 }
