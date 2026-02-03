@@ -20,14 +20,17 @@
 
   <!-- Sticky controls -->
 <section class="controls" aria-label="Soundboard controls">
-  <button class="ctl" id="stopAllBtn" type="button">Stop All</button>
-  <button class="ctl" id="fullscreenBtn" type="button">Fullscreen</button>
+  <div class="controls-inner">
+    <button class="ctl" id="stopAllBtn">Stop All</button>
+    <button class="ctl" id="fullscreenBtn">Fullscreen</button>
 
-  <label class="volume">
-    <span>Vol</span>
-    <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="1" />
-  </label>
+    <label class="volume">
+      <span>Vol</span>
+      <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="1" />
+    </label>
+  </div>
 </section>
+
 
 
   <main class="board" aria-label="Soundboard pads">
