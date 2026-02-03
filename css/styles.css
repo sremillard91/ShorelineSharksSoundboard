@@ -2,36 +2,39 @@
   --bg: #000000;
   --panel: #0f1113;
   --panel2: #14181b;
+
   --white: #ffffff;
-  --green: #0b7a3c;     /* Sharks green */
-  --green2: #11a85a;    /* accent */
-  --text: #e9f0ea;
-  --muted: #b8c6bc;
+  --text: #ffffff;
+  --muted: rgba(255,255,255,0.75);
   --border: rgba(255,255,255,0.12);
+
+  /* Original goal-horn green */
+  --green: rgba(17,168,90,0.45);
+
   --shadow: 0 10px 25px rgba(0,0,0,0.35);
 }
 
 *{ box-sizing: border-box; }
-html, body { height: 100%; }
+html, body{ height: 100%; }
 
 body{
   margin: 0;
-  background: radial-gradient(1200px 900px at 50% -10%, rgba(17,168,90,0.25), transparent 55%),
-              radial-gradient(900px 700px at 10% 10%, rgba(11,122,60,0.18), transparent 50%),
-              var(--bg);
+  background: #000000;
   color: var(--text);
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   -webkit-tap-highlight-color: transparent;
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Top brand bar */
+/* =========================
+   HEADER
+========================= */
 .topbar{
   position: sticky;
   top: 0;
   z-index: 5;
   padding: env(safe-area-inset-top) 12px 10px;
-  background: linear-gradient(180deg, rgba(15,17,19,0.95), rgba(15,17,19,0.70));
+  background: rgba(15,17,19,0.92);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
 }
@@ -51,8 +54,7 @@ body{
 }
 
 .titles .team{
-  font-weight: 800;
-  letter-spacing: 0.2px;
+  font-weight: 900;
   font-size: 18px;
   line-height: 1.1;
 }
@@ -62,7 +64,9 @@ body{
   color: var(--muted);
 }
 
-/* Sticky controls */
+/* =========================
+   CONTROLS
+========================= */
 .controls{
   position: sticky;
   top: calc(env(safe-area-inset-top) + 78px);
@@ -70,25 +74,23 @@ body{
   display: flex;
   gap: 10px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 10px 12px;
   max-width: 980px;
   margin: 0 auto;
-  background: linear-gradient(180deg, rgba(20,24,27,0.95), rgba(20,24,27,0.70));
+  background: rgba(20,24,27,0.92);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
-
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .ctl{
-  background: var(--panel2);
-  color: var(--white);
+  background: #2a2a2a;
+  color: #ffffff;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 12px 14px;
-  font-weight: 800;
+  font-weight: 900;
   box-shadow: var(--shadow);
   cursor: pointer;
   user-select: none;
@@ -96,14 +98,27 @@ body{
   touch-action: manipulation;
 }
 
-.ctl:active{ transform: translateY(1px); }
+.ctl:active{
+  transform: translateY(1px);
+}
 
+/* Stop All button (red) */
+#stopAllBtn{
+  background: linear-gradient(180deg, #d32f2f, #9a1b1b);
+  border-color: #ff6b6b;
+}
+
+#stopAllBtn:active{
+  filter: brightness(1.1);
+}
+
+/* Volume */
 .volume{
   display: flex;
   align-items: center;
   gap: 8px;
   color: var(--muted);
-  font-weight: 800;
+  font-weight: 900;
   font-size: 13px;
 }
 
@@ -111,22 +126,9 @@ body{
   width: min(70vw, 280px);
 }
 
-.toggle{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--muted);
-  font-weight: 800;
-  font-size: 13px;
-  user-select: none;
-}
-
-.toggle input{
-  width: 18px;
-  height: 18px;
-}
-
-/* Main board wrapper */
+/* =========================
+   BOARD
+========================= */
 .board{
   max-width: 980px;
   margin: 14px auto 18px;
@@ -135,9 +137,9 @@ body{
   gap: 14px;
 }
 
-/* Grouped sections */
+/* Section grouping */
 .group{
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  background: rgba(255,255,255,0.03);
   border: 1px solid var(--border);
   border-radius: 18px;
   padding: 14px;
@@ -159,7 +161,6 @@ body{
   font-size: 14px;
   letter-spacing: 1.2px;
   font-weight: 900;
-  color: var(--white);
 }
 
 .group-header p{
@@ -168,7 +169,9 @@ body{
   color: var(--muted);
 }
 
-/* Pads grid inside each group */
+/* =========================
+   PAD GRID
+========================= */
 .pad-grid{
   display: grid;
   gap: 12px;
@@ -182,31 +185,39 @@ body{
   .pad-grid{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
-/* Sound pads */
+/* =========================
+   SOUND & MUSIC PADS
+   (Original GOAL HORN look)
+========================= */
 .pad{
   appearance: none;
-  border: 1px solid var(--border);
+  border: 1px solid var(--green);
   border-radius: 18px;
   padding: 18px 14px;
   text-align: left;
-  color: var(--text);
+  color: #ffffff;
+
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
-    radial-gradient(700px 200px at 30% 0%, rgba(17,168,90,0.18), transparent 55%),
+    linear-gradient(180deg, rgba(17,168,90,0.20), rgba(255,255,255,0.02)),
+    radial-gradient(700px 220px at 30% 0%, rgba(17,168,90,0.30), transparent 55%),
     var(--panel);
 
   box-shadow: var(--shadow);
   cursor: pointer;
 
-  min-height: 108px;
+  min-height: 110px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  transform: translateZ(0);
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .pad-title{
@@ -216,48 +227,50 @@ body{
 }
 
 .pad-sub{
-  color: var(--muted);
   font-size: 13px;
+  color: rgba(255,255,255,0.85);
   margin-top: 10px;
 }
 
-/* Tap feedback */
+/* Hover (desktop only) */
+@media (hover: hover){
+  .pad:hover{
+    filter: brightness(1.1);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.55);
+    transform: translateY(-2px);
+  }
+}
+
+/* Tap / click */
 .pad:active{
   transform: translateY(2px) scale(0.99);
   filter: brightness(1.05);
-  border-color: rgba(17,168,90,0.55);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
 }
 
-/* Special pads */
-.pad-goal{
-  border-color: rgba(17,168,90,0.45);
-  background:
-    linear-gradient(180deg, rgba(17,168,90,0.20), rgba(255,255,255,0.02)),
-    radial-gradient(700px 220px at 30% 0%, rgba(17,168,90,0.30), transparent 55%),
-    var(--panel);
+/* Active playing ring */
+.pad.is-playing{
+  outline: 3px solid rgba(255,255,255,0.85);
+  outline-offset: 3px;
+  box-shadow:
+    0 14px 32px rgba(0,0,0,0.55),
+    0 0 0 2px rgba(17,168,90,0.55);
 }
 
-.pad-buzzer{
-  border-color: rgba(255,255,255,0.20);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02)),
-    radial-gradient(700px 220px at 30% 0%, rgba(255,255,255,0.10), transparent 55%),
-    var(--panel);
+/* =========================
+   DEVICE TUNING
+========================= */
+@media (max-width: 420px){
+  .pad{ min-height: 120px; }
+  .pad-title{ font-size: 16px; }
+  .pad-sub{ font-size: 12px; }
+  .logo{ height: 46px; }
 }
 
-.pad-music{
-  border-color: rgba(255,255,255,0.18);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
-    radial-gradient(700px 200px at 30% 0%, rgba(255,255,255,0.10), transparent 55%),
-    var(--panel);
+@media (min-width: 600px) and (max-width: 1024px){
+  .pad{ min-height: 130px; }
 }
 
-.pad-penalty{
-  border-color: rgba(255,255,255,0.28);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02)),
-    radial-gradient(700px 220px at 30% 0%, rgba(255,255,255,0.14), transparent 55%),
-    var(--panel);
+@media (min-width: 1025px){
+  .pad{ min-height: 115px; }
 }
