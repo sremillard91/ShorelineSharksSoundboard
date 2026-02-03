@@ -255,6 +255,7 @@ body{
   font-size: 13px;
   color: rgba(255,255,255,0.85);
   margin-top: 10px;
+  font-style: italic;
 }
 
 /* Hover (desktop only) */
@@ -299,3 +300,4 @@ body{
 @media (min-width: 1025px){
   .pad{ min-height: 115px; }
 }
+
