@@ -84,6 +84,14 @@ body{
   flex-wrap: wrap;
 }
 
+/* Mobile: controls snap directly under header */
+@media (max-width: 720px){
+  .controls{
+    top: 0; /* snaps right under the sticky header */
+  }
+}
+
+
 .ctl{
   background: #2a2a2a;
   color: #ffffff;
@@ -274,3 +282,4 @@ body{
 @media (min-width: 1025px){
   .pad{ min-height: 115px; }
 }
+
