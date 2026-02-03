@@ -12,6 +12,9 @@
   --green: rgba(17,168,90,0.45);
 
   --shadow: 0 10px 25px rgba(0,0,0,0.35);
+
+  /* JS sets this to the header height */
+  --topbar-h: 0px;
 }
 
 *{ box-sizing: border-box; }
@@ -65,32 +68,31 @@ body{
 }
 
 /* =========================
-   CONTROLS
+   CONTROLS (FULL WIDTH BAR)
 ========================= */
 .controls{
   position: sticky;
-  top: calc(env(safe-area-inset-top) + 78px);
+  top: calc(env(safe-area-inset-top) + var(--topbar-h, 0px));
   z-index: 4;
+
+  width: 100%;
+  background: rgba(20,24,27,0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* inner container aligns with header content width */
+.controls-inner{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 10px 12px;
+
   display: flex;
   gap: 10px;
   align-items: center;
   justify-content: center;
-  padding: 10px 12px;
-  max-width: 980px;
-  margin: 0 auto;
-  background: rgba(20,24,27,0.92);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
   flex-wrap: wrap;
 }
-
-/* Mobile: controls snap directly under header */
-@media (max-width: 720px){
-  .controls{
-    top: 0; /* snaps right under the sticky header */
-  }
-}
-
 
 .ctl{
   background: #2a2a2a;
@@ -132,6 +134,22 @@ body{
 
 .volume input{
   width: min(70vw, 280px);
+}
+
+/* Mobile: keep Stop/Fullscreen visible; put volume on its own full-width row */
+@media (max-width: 720px){
+  .controls-inner{
+    justify-content: center;
+  }
+
+  .volume{
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  .volume input{
+    width: min(85vw, 320px);
+  }
 }
 
 /* =========================
@@ -195,7 +213,6 @@ body{
 
 /* =========================
    SOUND & MUSIC PADS
-   (Original GOAL HORN look)
 ========================= */
 .pad{
   appearance: none;
@@ -282,4 +299,3 @@ body{
 @media (min-width: 1025px){
   .pad{ min-height: 115px; }
 }
-
