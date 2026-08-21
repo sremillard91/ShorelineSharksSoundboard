@@ -118,24 +118,7 @@ let shuffleEnabled =
    FULL SONG PLAYLIST
 ========================= */
 
-/*
-  Add full songs here.
 
-  "file" is the filename
-  WITHOUT .mp3.
-
-  Example:
-
-  {
-    title: "Thunderstruck",
-    artist: "AC/DC",
-    file: "Thunderstruck"
-  }
-
-  MP3 location:
-
-  audio/Thunderstruck.mp3
-*/
 
 const playlist = [
 
@@ -144,15 +127,90 @@ const playlist = [
     artist: "Rednex",
     file: "CEJFull"
   }
-
-  /*
+  ,
+  {
+    title: "Party In The U.S.A.",
+    artist: "Miley Cyrus",
+    file: "Party In The U.S.A.Full"
+  }
   ,
   {
     title: "Thunderstruck",
     artist: "AC/DC",
-    file: "Thunderstruck"
+    file: "ThunderstruckFull"
   }
-  */
+  ,
+  {
+    title: "Shake It Off",
+    artist: "Taylor Swift",
+    file: "Shake It OffFull"
+  }
+  ,
+  {
+    title: "Takedown",
+    artist: "Huntrix - KPop Demon Hunters",
+    file: "TakedownkpopFull"
+  }
+  ,
+  {
+    title: "Sweet Caroline",
+    artist: "Neil Diamond",
+    file: "SweetCarolineFull"
+  }
+  ,
+  {
+    title: "I'm Shipping Up To Boston",
+    artist: "Dropkick Murphys",
+    file: "I'm Shipping Up To Boston Full"
+  }
+  ,
+  {
+    title: "Lush Life",
+    artist: "Zara Larsson",
+    file: "Lush Life Full"
+  }
+  ,
+  {
+    title: "Centuries",
+    artist: "Fall Out Boy",
+    file: "CenturiesFull"
+  }
+  ,
+  {
+    title: "My House",
+    artist: "Flo Rida",
+    file: "My House Full"
+  }
+  ,
+  {
+    title: "I Gotta Feeling",
+    artist: "The Black Eyed Peas",
+    file: "I Gotta Feeling Full"
+  }
+  ,
+  {
+    title: "Man! I Feel Like A Woman",
+    artist: "Shania Twain",
+    file: "Man I Feel Like A WomanFull"
+  }
+  ,
+  {
+    title: "Beautiful Things",
+    artist: "Benson Boone",
+    file: "Beautiful Things Full"
+  }
+  ,
+  {
+    title: "Seven Nation Army",
+    artist: "The White Stripes",
+    file: "Seven Nation Army Full"
+  }
+  ,
+  {
+    title: "Unstoppable",
+    artist: "Sia",
+    file: "UnstoppableFull"
+  }
 
 ];
 
