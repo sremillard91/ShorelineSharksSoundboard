@@ -3,7 +3,9 @@
 ========================= */
 
 const pads =
-  document.querySelectorAll(".pad");
+  document.querySelectorAll(
+    ".pad"
+  );
 
 const volumeSlider =
   document.getElementById(
@@ -23,6 +25,31 @@ const playPauseBtn =
 const fullscreenBtn =
   document.getElementById(
     "fullscreenBtn"
+  );
+
+
+/* =========================
+   GUIDE ELEMENTS
+========================= */
+
+const guideBtn =
+  document.getElementById(
+    "guideBtn"
+  );
+
+const guideOverlay =
+  document.getElementById(
+    "guideOverlay"
+  );
+
+const guideCloseBtn =
+  document.getElementById(
+    "guideCloseBtn"
+  );
+
+const guideDoneBtn =
+  document.getElementById(
+    "guideDoneBtn"
   );
 
 
@@ -90,7 +117,8 @@ const shuffleBtn =
    AUDIO STATE
 ========================= */
 
-let activeAudios = [];
+let activeAudios =
+  [];
 
 let activeButtons =
   new Set();
@@ -104,8 +132,6 @@ let currentButton =
 let currentSourceType =
   null;
 
-
-/* Playlist state */
 
 let currentPlaylistIndex =
   -1;
@@ -121,93 +147,182 @@ let shuffleEnabled =
 const playlist = [
 
   {
-    title: "Cotton Eye Joe",
-    artist: "Rednex",
-    file: "CEJFull"
+    title:
+      "Cotton Eye Joe",
+
+    artist:
+      "Rednex",
+
+    file:
+      "CEJFull"
   },
 
-  {
-    title: "Party In The U.S.A.",
-    artist: "Miley Cyrus",
-    file: "Party In The U.S.A.Full"
-  },
 
   {
-    title: "Thunderstruck",
-    artist: "AC/DC",
-    file: "ThunderstruckFull"
+    title:
+      "Party In The U.S.A.",
+
+    artist:
+      "Miley Cyrus",
+
+    file:
+      "Party In The U.S.A.Full"
   },
 
-  {
-    title: "Shake It Off",
-    artist: "Taylor Swift",
-    file: "Shake It OffFull"
-  },
 
   {
-    title: "Takedown",
-    artist: "Huntrix - KPop Demon Hunters",
-    file: "TakedownkpopFull"
+    title:
+      "Thunderstruck",
+
+    artist:
+      "AC/DC",
+
+    file:
+      "ThunderstruckFull"
   },
 
-  {
-    title: "Sweet Caroline",
-    artist: "Neil Diamond",
-    file: "SweetCarolineFull"
-  },
 
   {
-    title: "I'm Shipping Up To Boston",
-    artist: "Dropkick Murphys",
-    file: "I'm Shipping Up To Boston Full"
+    title:
+      "Shake It Off",
+
+    artist:
+      "Taylor Swift",
+
+    file:
+      "Shake It OffFull"
   },
 
-  {
-    title: "Lush Life",
-    artist: "Zara Larsson",
-    file: "Lush Life Full"
-  },
 
   {
-    title: "Centuries",
-    artist: "Fall Out Boy",
-    file: "CenturiesFull"
+    title:
+      "Takedown",
+
+    artist:
+      "Huntrix - KPop Demon Hunters",
+
+    file:
+      "TakedownkpopFull"
   },
 
-  {
-    title: "My House",
-    artist: "Flo Rida",
-    file: "My House Full"
-  },
 
   {
-    title: "I Gotta Feeling",
-    artist: "The Black Eyed Peas",
-    file: "I Gotta Feeling Full"
+    title:
+      "Sweet Caroline",
+
+    artist:
+      "Neil Diamond",
+
+    file:
+      "SweetCarolineFull"
   },
 
-  {
-    title: "Man! I Feel Like A Woman",
-    artist: "Shania Twain",
-    file: "Man I Feel Like A WomanFull"
-  },
 
   {
-    title: "Beautiful Things",
-    artist: "Benson Boone",
-    file: "Beautiful Things Full"
+    title:
+      "I'm Shipping Up To Boston",
+
+    artist:
+      "Dropkick Murphys",
+
+    file:
+      "I'm Shipping Up To Boston Full"
   },
 
-  {
-    title: "Seven Nation Army",
-    artist: "The White Stripes",
-    file: "Seven Nation Army Full"
-  },
 
   {
-    title: "Unstoppable",
-    artist: "Sia",
-    file: "UnstoppableFull"
+    title:
+      "Lush Life",
+
+    artist:
+      "Zara Larsson",
+
+    file:
+      "Lush Life Full"
+  },
+
+
+  {
+    title:
+      "Centuries",
+
+    artist:
+      "Fall Out Boy",
+
+    file:
+      "CenturiesFull"
+  },
+
+
+  {
+    title:
+      "My House",
+
+    artist:
+      "Flo Rida",
+
+    file:
+      "My House Full"
+  },
+
+
+  {
+    title:
+      "I Gotta Feeling",
+
+    artist:
+      "The Black Eyed Peas",
+
+    file:
+      "I Gotta Feeling Full"
+  },
+
+
+  {
+    title:
+      "Man! I Feel Like A Woman",
+
+    artist:
+      "Shania Twain",
+
+    file:
+      "Man I Feel Like A WomanFull"
+  },
+
+
+  {
+    title:
+      "Beautiful Things",
+
+    artist:
+      "Benson Boone",
+
+    file:
+      "Beautiful Things Full"
+  },
+
+
+  {
+    title:
+      "Seven Nation Army",
+
+    artist:
+      "The White Stripes",
+
+    file:
+      "Seven Nation Army Full"
+  },
+
+
+  {
+    title:
+      "Unstoppable",
+
+    artist:
+      "Sia",
+
+    file:
+      "UnstoppableFull"
   }
 
 ];
@@ -270,12 +385,9 @@ function updateFixedOffsets(){
         `${controlsHeight}px`
       );
   }
+
 }
 
-
-/* =========================
-   REFRESH FIXED OFFSETS
-========================= */
 
 function refreshFixedOffsets(){
 
@@ -299,6 +411,7 @@ function refreshFixedOffsets(){
       requestAnimationFrame(
         updateFixedOffsets
       );
+
     }
   );
 
@@ -326,11 +439,12 @@ function refreshFixedOffsets(){
       updateFixedOffsets,
       600
     );
+
 }
 
 
 /* =========================
-   FIXED BAR EVENTS
+   WINDOW / FULLSCREEN EVENTS
 ========================= */
 
 window.addEventListener(
@@ -363,7 +477,9 @@ document.addEventListener(
 );
 
 
-if (window.visualViewport){
+if (
+  window.visualViewport
+){
 
   window.visualViewport
     .addEventListener(
@@ -377,6 +493,7 @@ if (window.visualViewport){
       "scroll",
       refreshFixedOffsets
     );
+
 }
 
 
@@ -384,13 +501,17 @@ if (window.visualViewport){
    RESIZE OBSERVER
 ========================= */
 
-if ("ResizeObserver" in window){
+if (
+  "ResizeObserver"
+  in window
+){
 
   const fixedResizeObserver =
     new ResizeObserver(
       () => {
 
         refreshFixedOffsets();
+
       }
     );
 
@@ -409,23 +530,28 @@ if ("ResizeObserver" in window){
 
   if (topbar){
 
-    fixedResizeObserver.observe(
-      topbar
-    );
+    fixedResizeObserver
+      .observe(
+        topbar
+      );
+
   }
 
 
   if (controls){
 
-    fixedResizeObserver.observe(
-      controls
-    );
+    fixedResizeObserver
+      .observe(
+        controls
+      );
+
   }
+
 }
 
 
 /* =========================
-   FONT LOADING
+   FONT LOAD
 ========================= */
 
 if (
@@ -433,9 +559,11 @@ if (
   document.fonts.ready
 ){
 
-  document.fonts.ready.then(
-    refreshFixedOffsets
-  );
+  document.fonts.ready
+    .then(
+      refreshFixedOffsets
+    );
+
 }
 
 
@@ -443,11 +571,18 @@ if (
    HELPERS
 ========================= */
 
-function formatTime(seconds){
+function formatTime(
+  seconds
+){
 
-  if (!Number.isFinite(seconds)){
+  if (
+    !Number.isFinite(
+      seconds
+    )
+  ){
 
     return "0:00";
+
   }
 
 
@@ -472,34 +607,42 @@ function formatTime(seconds){
         "0"
       )
   );
+
 }
 
 
 /* =========================
-   MASTER PLAY / PAUSE LABEL
+   MASTER PLAY/PAUSE LABEL
 ========================= */
 
 function setPlayPauseLabel(){
 
-  if (playPauseBtn){
+  if (
+    playPauseBtn
+  ){
 
     if (
       currentAudio &&
       !currentAudio.paused
     ){
 
-      playPauseBtn.textContent =
+      playPauseBtn
+        .textContent =
         "Pause";
 
     }else{
 
-      playPauseBtn.textContent =
+      playPauseBtn
+        .textContent =
         "Play";
+
     }
+
   }
 
 
   updatePlaylistPlayButton();
+
 }
 
 
@@ -509,9 +652,12 @@ function setPlayPauseLabel(){
 
 function updatePlaylistPlayButton(){
 
-  if (!playlistPlayPauseBtn){
+  if (
+    !playlistPlayPauseBtn
+  ){
 
     return;
+
   }
 
 
@@ -545,12 +691,14 @@ function updatePlaylistPlayButton(){
         "aria-label",
         "Play song"
       );
+
   }
+
 }
 
 
 /* =========================
-   SOUNDBOARD PAD STATE
+   PAD STATE
 ========================= */
 
 function setPlaying(
@@ -558,60 +706,81 @@ function setPlaying(
   isPlaying
 ){
 
-  if (!button){
+  if (
+    !button
+  ){
 
     return;
+
   }
 
 
-  if (isPlaying){
+  if (
+    isPlaying
+  ){
 
-    button.classList.add(
-      "is-playing"
-    );
+    button
+      .classList
+      .add(
+        "is-playing"
+      );
 
 
-    activeButtons.add(
-      button
-    );
+    activeButtons
+      .add(
+        button
+      );
 
   }else{
 
-    button.classList.remove(
-      "is-playing"
-    );
+    button
+      .classList
+      .remove(
+        "is-playing"
+      );
 
 
-    activeButtons.delete(
-      button
-    );
+    activeButtons
+      .delete(
+        button
+      );
+
   }
+
 }
 
 
 /* =========================
-   CREATE PLAYLIST
+   PLAYLIST RENDER
 ========================= */
 
 function renderPlaylist(){
 
-  if (!playlistEl){
+  if (
+    !playlistEl
+  ){
 
     return;
+
   }
 
 
-  playlistEl.innerHTML =
+  playlistEl
+    .innerHTML =
     "";
 
 
   playlist.forEach(
-    (song, index) => {
+    (
+      song,
+      index
+    ) => {
 
       const button =
-        document.createElement(
-          "button"
-        );
+        document
+          .createElement(
+            "button"
+          );
 
 
       button.type =
@@ -667,13 +836,15 @@ function renderPlaylist(){
           playPlaylistSong(
             index
           );
+
         }
       );
 
 
-      playlistEl.appendChild(
-        button
-      );
+      playlistEl
+        .appendChild(
+          button
+        );
 
 
       const metadataAudio =
@@ -698,14 +869,19 @@ function renderPlaylist(){
                 );
 
 
-            if (display){
+            if (
+              display
+            ){
 
-              display.textContent =
+              display
+                .textContent =
                 formatTime(
                   metadataAudio
                     .duration
                 );
+
             }
+
           }
         );
 
@@ -722,26 +898,37 @@ function renderPlaylist(){
                 );
 
 
-            if (display){
+            if (
+              display
+            ){
 
-              display.textContent =
+              display
+                .textContent =
                 "--:--";
+
             }
+
           }
         );
+
     }
   );
 
 
-  if (playlistCount){
+  if (
+    playlistCount
+  ){
 
-    playlistCount.textContent =
+    playlistCount
+      .textContent =
       `${playlist.length} ${
         playlist.length === 1
           ? "SONG"
           : "SONGS"
       }`;
+
   }
+
 }
 
 
@@ -752,13 +939,17 @@ function renderPlaylist(){
 function updatePlaylistHighlight(){
 
   const rows =
-    document.querySelectorAll(
-      ".playlist-song"
-    );
+    document
+      .querySelectorAll(
+        ".playlist-song"
+      );
 
 
   rows.forEach(
-    (row, index) => {
+    (
+      row,
+      index
+    ) => {
 
       const isCurrent =
         (
@@ -771,21 +962,27 @@ function updatePlaylistHighlight(){
         );
 
 
-      row.classList.toggle(
-        "is-playing",
-        isCurrent
-      );
-
-
-      const number =
-        row.querySelector(
-          ".playlist-song-number"
+      row
+        .classList
+        .toggle(
+          "is-playing",
+          isCurrent
         );
 
 
-      if (!number){
+      const number =
+        row
+          .querySelector(
+            ".playlist-song-number"
+          );
+
+
+      if (
+        !number
+      ){
 
         return;
+
       }
 
 
@@ -795,22 +992,27 @@ function updatePlaylistHighlight(){
         !currentAudio.paused
       ){
 
-        number.textContent =
+        number
+          .textContent =
           "▶";
 
       }else{
 
-        number.textContent =
+        number
+          .textContent =
           index + 1;
+
       }
+
     }
   );
 
 
   const activeRow =
-    document.querySelector(
-      ".playlist-song.is-playing"
-    );
+    document
+      .querySelector(
+        ".playlist-song.is-playing"
+      );
 
 
   if (
@@ -819,50 +1021,66 @@ function updatePlaylistHighlight(){
   ){
 
     const rowTop =
-      activeRow.offsetTop;
+      activeRow
+        .offsetTop;
 
 
     const rowBottom =
       rowTop +
-      activeRow.offsetHeight;
+      activeRow
+        .offsetHeight;
 
 
     const viewTop =
-      playlistEl.scrollTop;
+      playlistEl
+        .scrollTop;
 
 
     const viewBottom =
       viewTop +
-      playlistEl.clientHeight;
+      playlistEl
+        .clientHeight;
 
 
     if (
-      rowTop < viewTop
+      rowTop <
+      viewTop
     ){
 
-      playlistEl.scrollTo({
-        top: rowTop,
-        behavior: "smooth"
-      });
+      playlistEl
+        .scrollTo({
+          top:
+            rowTop,
+
+          behavior:
+            "smooth"
+        });
 
     }else if (
-      rowBottom > viewBottom
+      rowBottom >
+      viewBottom
     ){
 
-      playlistEl.scrollTo({
-        top:
-          rowBottom -
-          playlistEl.clientHeight,
-        behavior:
-          "smooth"
-      });
+      playlistEl
+        .scrollTo({
+          top:
+            rowBottom -
+            playlistEl
+              .clientHeight,
+
+          behavior:
+            "smooth"
+        });
+
     }
+
   }
+
 }
 
 
 /* =========================
-   RESET PLAYLIST DISPLAY
+   RESET PLAYLIST
 ========================= */
 
 function resetPlaylistDisplay(){
@@ -871,49 +1089,70 @@ function resetPlaylistDisplay(){
     -1;
 
 
-  if (nowPlayingTitle){
+  if (
+    nowPlayingTitle
+  ){
 
-    nowPlayingTitle.textContent =
+    nowPlayingTitle
+      .textContent =
       "Select a song";
+
   }
 
 
-  if (nowPlayingArtist){
+  if (
+    nowPlayingArtist
+  ){
 
-    nowPlayingArtist.textContent =
+    nowPlayingArtist
+      .textContent =
       "Shoreline Sharks Playlist";
+
   }
 
 
-  if (currentTimeEl){
+  if (
+    currentTimeEl
+  ){
 
-    currentTimeEl.textContent =
+    currentTimeEl
+      .textContent =
       "0:00";
+
   }
 
 
-  if (durationEl){
+  if (
+    durationEl
+  ){
 
-    durationEl.textContent =
+    durationEl
+      .textContent =
       "0:00";
+
   }
 
 
-  if (songProgress){
+  if (
+    songProgress
+  ){
 
-    songProgress.value =
+    songProgress
+      .value =
       0;
+
   }
 
 
   updatePlaylistHighlight();
 
   updatePlaylistPlayButton();
+
 }
 
 
 /* =========================
-   REMOVE ACTIVE AUDIO
+   ACTIVE AUDIO HELPERS
 ========================= */
 
 function removeActiveAudio(
@@ -923,22 +1162,23 @@ function removeActiveAudio(
   activeAudios =
     activeAudios.filter(
       activeAudio =>
-        activeAudio !== audio
+        activeAudio !==
+        audio
     );
+
 }
 
-
-/* =========================
-   STOP CURRENT AUDIO
-========================= */
 
 function stopCurrentAudio(
   resetTime = true
 ){
 
-  if (!currentAudio){
+  if (
+    !currentAudio
+  ){
 
     return;
+
   }
 
 
@@ -948,24 +1188,32 @@ function stopCurrentAudio(
 
   try{
 
-    audioToStop.pause();
+    audioToStop
+      .pause();
 
 
-    if (resetTime){
+    if (
+      resetTime
+    ){
 
-      audioToStop.currentTime =
+      audioToStop
+        .currentTime =
         0;
+
     }
 
   }catch{}
 
 
-  if (currentButton){
+  if (
+    currentButton
+  ){
 
     setPlaying(
       currentButton,
       false
     );
+
   }
 
 
@@ -980,11 +1228,12 @@ function stopCurrentAudio(
 
   currentButton =
     null;
+
 }
 
 
 /* =========================
-   STOP ALL AUDIO
+   STOP ALL
 ========================= */
 
 function stopAllSounds(){
@@ -1000,6 +1249,7 @@ function stopAllSounds(){
           0;
 
       }catch{}
+
     }
   );
 
@@ -1011,9 +1261,12 @@ function stopAllSounds(){
   activeButtons.forEach(
     button => {
 
-      button.classList.remove(
-        "is-playing"
-      );
+      button
+        .classList
+        .remove(
+          "is-playing"
+        );
+
     }
   );
 
@@ -1036,6 +1289,7 @@ function stopAllSounds(){
   resetPlaylistDisplay();
 
   setPlayPauseLabel();
+
 }
 
 
@@ -1084,130 +1338,155 @@ function playSound(
     buttonElement;
 
 
-  if (buttonElement){
+  if (
+    buttonElement
+  ){
 
     setPlaying(
       buttonElement,
       true
     );
+
   }
 
 
-  activeAudios.push(
-    audio
-  );
+  activeAudios
+    .push(
+      audio
+    );
 
 
-  audio.addEventListener(
-    "ended",
-    () => {
+  audio
+    .addEventListener(
+      "ended",
+      () => {
 
-      if (buttonElement){
+        if (
+          buttonElement
+        ){
 
-        setPlaying(
-          buttonElement,
-          false
+          setPlaying(
+            buttonElement,
+            false
+          );
+
+        }
+
+
+        removeActiveAudio(
+          audio
         );
+
+
+        if (
+          currentAudio ===
+          audio
+        ){
+
+          currentAudio =
+            null;
+
+
+          currentButton =
+            null;
+
+
+          currentSourceType =
+            null;
+
+
+          setPlayPauseLabel();
+
+        }
+
       }
+    );
 
 
-      removeActiveAudio(
-        audio
-      );
+  audio
+    .addEventListener(
+      "play",
+      setPlayPauseLabel
+    );
 
 
-      if (
-        currentAudio === audio
-      ){
-
-        currentAudio =
-          null;
-
-
-        currentButton =
-          null;
+  audio
+    .addEventListener(
+      "pause",
+      setPlayPauseLabel
+    );
 
 
-        currentSourceType =
-          null;
+  audio
+    .addEventListener(
+      "error",
+      () => {
+
+        if (
+          buttonElement
+        ){
+
+          setPlaying(
+            buttonElement,
+            false
+          );
+
+        }
+
+
+        removeActiveAudio(
+          audio
+        );
+
+
+        if (
+          currentAudio ===
+          audio
+        ){
+
+          currentAudio =
+            null;
+
+
+          currentButton =
+            null;
+
+
+          currentSourceType =
+            null;
+
+        }
 
 
         setPlayPauseLabel();
+
       }
-    }
-  );
+    );
 
 
-  audio.addEventListener(
-    "play",
-    setPlayPauseLabel
-  );
-
-
-  audio.addEventListener(
-    "pause",
-    setPlayPauseLabel
-  );
-
-
-  audio.addEventListener(
-    "error",
-    () => {
-
-      if (buttonElement){
-
-        setPlaying(
-          buttonElement,
-          false
-        );
-      }
-
-
-      removeActiveAudio(
-        audio
-      );
-
-
-      if (
-        currentAudio === audio
-      ){
-
-        currentAudio =
-          null;
-
-
-        currentButton =
-          null;
-
-
-        currentSourceType =
-          null;
-      }
-
-
-      setPlayPauseLabel();
-    }
-  );
-
-
-  audio.play()
+  audio
+    .play()
 
     .then(
       () => {
 
         setPlayPauseLabel();
+
       }
     )
 
     .catch(
       () => {
 
-        if (buttonElement){
+        if (
+          buttonElement
+        ){
 
           setPlaying(
             buttonElement,
             false
           );
+
         }
 
 
@@ -1229,8 +1508,10 @@ function playSound(
 
 
         setPlayPauseLabel();
+
       }
     );
+
 }
 
 
@@ -1242,9 +1523,12 @@ function playPlaylistSong(
   index
 ){
 
-  if (!playlist[index]){
+  if (
+    !playlist[index]
+  ){
 
     return;
+
   }
 
 
@@ -1285,170 +1569,224 @@ function playPlaylistSong(
     null;
 
 
-  activeAudios.push(
-    audio
-  );
+  activeAudios
+    .push(
+      audio
+    );
 
 
-  if (nowPlayingTitle){
+  if (
+    nowPlayingTitle
+  ){
 
-    nowPlayingTitle.textContent =
+    nowPlayingTitle
+      .textContent =
       song.title;
+
   }
 
 
-  if (nowPlayingArtist){
+  if (
+    nowPlayingArtist
+  ){
 
-    nowPlayingArtist.textContent =
+    nowPlayingArtist
+      .textContent =
       song.artist;
+
   }
 
 
-  if (currentTimeEl){
+  if (
+    currentTimeEl
+  ){
 
-    currentTimeEl.textContent =
+    currentTimeEl
+      .textContent =
       "0:00";
+
   }
 
 
-  if (durationEl){
+  if (
+    durationEl
+  ){
 
-    durationEl.textContent =
+    durationEl
+      .textContent =
       "0:00";
+
   }
 
 
-  if (songProgress){
+  if (
+    songProgress
+  ){
 
-    songProgress.value =
+    songProgress
+      .value =
       0;
+
   }
 
 
   updatePlaylistHighlight();
 
 
-  audio.addEventListener(
-    "loadedmetadata",
-    () => {
+  audio
+    .addEventListener(
+      "loadedmetadata",
+      () => {
 
-      if (durationEl){
+        if (
+          durationEl
+        ){
 
-        durationEl.textContent =
-          formatTime(
-            audio.duration
-          );
+          durationEl
+            .textContent =
+            formatTime(
+              audio.duration
+            );
+
+        }
+
       }
-    }
-  );
+    );
 
 
-  audio.addEventListener(
-    "timeupdate",
-    () => {
+  audio
+    .addEventListener(
+      "timeupdate",
+      () => {
 
-      if (!audio.duration){
+        if (
+          !audio.duration
+        ){
 
-        return;
+          return;
+
+        }
+
+
+        if (
+          currentTimeEl
+        ){
+
+          currentTimeEl
+            .textContent =
+            formatTime(
+              audio.currentTime
+            );
+
+        }
+
+
+        if (
+          songProgress
+        ){
+
+          songProgress
+            .value =
+            (
+              audio.currentTime /
+              audio.duration
+            ) *
+            100;
+
+        }
+
       }
+    );
 
 
-      if (currentTimeEl){
+  audio
+    .addEventListener(
+      "play",
+      () => {
 
-        currentTimeEl.textContent =
-          formatTime(
-            audio.currentTime
-          );
+        updatePlaylistHighlight();
+
+        setPlayPauseLabel();
+
       }
+    );
 
 
-      if (songProgress){
+  audio
+    .addEventListener(
+      "pause",
+      () => {
 
-        songProgress.value =
-          (
-            audio.currentTime /
-            audio.duration
-          ) * 100;
+        updatePlaylistHighlight();
+
+        setPlayPauseLabel();
+
       }
-    }
-  );
+    );
 
 
-  audio.addEventListener(
-    "play",
-    () => {
+  audio
+    .addEventListener(
+      "ended",
+      () => {
 
-      updatePlaylistHighlight();
-
-      setPlayPauseLabel();
-    }
-  );
-
-
-  audio.addEventListener(
-    "pause",
-    () => {
-
-      updatePlaylistHighlight();
-
-      setPlayPauseLabel();
-    }
-  );
+        removeActiveAudio(
+          audio
+        );
 
 
-  audio.addEventListener(
-    "ended",
-    () => {
+        if (
+          currentAudio ===
+          audio
+        ){
 
-      removeActiveAudio(
-        audio
-      );
-
-
-      if (
-        currentAudio === audio
-      ){
-
-        currentAudio =
-          null;
+          currentAudio =
+            null;
 
 
-        playNextSong();
+          playNextSong();
+
+        }
+
       }
-    }
-  );
+    );
 
 
-  audio.addEventListener(
-    "error",
-    () => {
+  audio
+    .addEventListener(
+      "error",
+      () => {
 
-      removeActiveAudio(
-        audio
-      );
-
-
-      if (
-        currentAudio === audio
-      ){
-
-        currentAudio =
-          null;
+        removeActiveAudio(
+          audio
+        );
 
 
-        currentSourceType =
-          null;
+        if (
+          currentAudio ===
+          audio
+        ){
+
+          currentAudio =
+            null;
+
+
+          currentSourceType =
+            null;
+
+        }
+
+
+        setPlayPauseLabel();
+
+        updatePlaylistHighlight();
+
       }
+    );
 
 
-      setPlayPauseLabel();
-
-      updatePlaylistHighlight();
-    }
-  );
-
-
-  audio.play()
+  audio
+    .play()
 
     .then(
       () => {
@@ -1456,6 +1794,7 @@ function playPlaylistSong(
         setPlayPauseLabel();
 
         updatePlaylistHighlight();
+
       }
     )
 
@@ -1468,7 +1807,8 @@ function playPlaylistSong(
 
 
         if (
-          currentAudio === audio
+          currentAudio ===
+          audio
         ){
 
           currentAudio =
@@ -1477,14 +1817,17 @@ function playPlaylistSong(
 
           currentSourceType =
             null;
+
         }
 
 
         setPlayPauseLabel();
 
         updatePlaylistHighlight();
+
       }
     );
+
 }
 
 
@@ -1494,9 +1837,12 @@ function playPlaylistSong(
 
 function playNextSong(){
 
-  if (!playlist.length){
+  if (
+    !playlist.length
+  ){
 
     return;
+
   }
 
 
@@ -1533,7 +1879,9 @@ function playNextSong(){
     }else{
 
       nextIndex =
-        currentPlaylistIndex + 1;
+        currentPlaylistIndex +
+        1;
+
     }
 
 
@@ -1544,13 +1892,16 @@ function playNextSong(){
 
       nextIndex =
         0;
+
     }
+
   }
 
 
   playPlaylistSong(
     nextIndex
   );
+
 }
 
 
@@ -1560,9 +1911,12 @@ function playNextSong(){
 
 function playPreviousSong(){
 
-  if (!playlist.length){
+  if (
+    !playlist.length
+  ){
 
     return;
+
   }
 
 
@@ -1570,7 +1924,8 @@ function playPreviousSong(){
     currentAudio &&
     currentSourceType ===
       "playlist" &&
-    currentAudio.currentTime > 3
+    currentAudio.currentTime >
+      3
   ){
 
     currentAudio.currentTime =
@@ -1578,34 +1933,42 @@ function playPreviousSong(){
 
 
     return;
+
   }
 
 
   let previousIndex =
-    currentPlaylistIndex - 1;
+    currentPlaylistIndex -
+    1;
 
 
   if (
-    currentPlaylistIndex < 0
+    currentPlaylistIndex <
+    0
   ){
 
     previousIndex =
       0;
+
   }
 
 
   if (
-    previousIndex < 0
+    previousIndex <
+    0
   ){
 
     previousIndex =
-      playlist.length - 1;
+      playlist.length -
+      1;
+
   }
 
 
   playPlaylistSong(
     previousIndex
   );
+
 }
 
 
@@ -1616,37 +1979,49 @@ function playPreviousSong(){
 pads.forEach(
   button => {
 
-    button.addEventListener(
-      "click",
-      () => {
+    button
+      .addEventListener(
+        "click",
+        () => {
 
-        const sound =
-          button.dataset.sound;
-
-
-        if (sound){
-
-          playSound(
-            sound,
+          const sound =
             button
-          );
+              .dataset
+              .sound;
+
+
+          if (
+            sound
+          ){
+
+            playSound(
+              sound,
+              button
+            );
+
+          }
+
         }
-      }
-    );
+      );
+
   }
 );
 
 
 /* =========================
-   STOP ALL
+   STOP ALL BUTTON
 ========================= */
 
-if (stopAllBtn){
+if (
+  stopAllBtn
+){
 
-  stopAllBtn.addEventListener(
-    "click",
-    stopAllSounds
-  );
+  stopAllBtn
+    .addEventListener(
+      "click",
+      stopAllSounds
+    );
+
 }
 
 
@@ -1654,27 +2029,34 @@ if (stopAllBtn){
    MASTER VOLUME
 ========================= */
 
-if (volumeSlider){
+if (
+  volumeSlider
+){
 
-  volumeSlider.addEventListener(
-    "input",
-    () => {
+  volumeSlider
+    .addEventListener(
+      "input",
+      () => {
 
-      const volume =
-        Number(
-          volumeSlider.value
-        );
+        const volume =
+          Number(
+            volumeSlider.value
+          );
 
 
-      activeAudios.forEach(
-        audio => {
+        activeAudios
+          .forEach(
+            audio => {
 
-          audio.volume =
-            volume;
-        }
-      );
-    }
-  );
+              audio.volume =
+                volume;
+
+            }
+          );
+
+      }
+    );
+
 }
 
 
@@ -1682,34 +2064,46 @@ if (volumeSlider){
    MASTER PLAY / PAUSE
 ========================= */
 
-if (playPauseBtn){
+if (
+  playPauseBtn
+){
 
-  playPauseBtn.addEventListener(
-    "click",
-    () => {
-
-      if (!currentAudio){
-
-        return;
-      }
-
-
-      try{
+  playPauseBtn
+    .addEventListener(
+      "click",
+      () => {
 
         if (
-          currentAudio.paused
+          !currentAudio
         ){
 
-          currentAudio.play();
+          return;
 
-        }else{
-
-          currentAudio.pause();
         }
 
-      }catch{}
-    }
-  );
+
+        try{
+
+          if (
+            currentAudio
+              .paused
+          ){
+
+            currentAudio
+              .play();
+
+          }else{
+
+            currentAudio
+              .pause();
+
+          }
+
+        }catch{}
+
+      }
+    );
+
 }
 
 
@@ -1717,7 +2111,9 @@ if (playPauseBtn){
    PLAYLIST PLAY / PAUSE
 ========================= */
 
-if (playlistPlayPauseBtn){
+if (
+  playlistPlayPauseBtn
+){
 
   playlistPlayPauseBtn
     .addEventListener(
@@ -1731,7 +2127,8 @@ if (playlistPlayPauseBtn){
         ){
 
           const indexToPlay =
-            currentPlaylistIndex >= 0
+            currentPlaylistIndex >=
+            0
               ? currentPlaylistIndex
               : 0;
 
@@ -1742,25 +2139,32 @@ if (playlistPlayPauseBtn){
 
 
           return;
+
         }
 
 
         try{
 
           if (
-            currentAudio.paused
+            currentAudio
+              .paused
           ){
 
-            currentAudio.play();
+            currentAudio
+              .play();
 
           }else{
 
-            currentAudio.pause();
+            currentAudio
+              .pause();
+
           }
 
         }catch{}
+
       }
     );
+
 }
 
 
@@ -1768,34 +2172,42 @@ if (playlistPlayPauseBtn){
    SEEK BAR
 ========================= */
 
-if (songProgress){
+if (
+  songProgress
+){
 
-  songProgress.addEventListener(
-    "input",
-    () => {
+  songProgress
+    .addEventListener(
+      "input",
+      () => {
 
-      if (
-        !currentAudio ||
-        currentSourceType !==
-          "playlist" ||
-        !currentAudio.duration
-      ){
+        if (
+          !currentAudio ||
+          currentSourceType !==
+            "playlist" ||
+          !currentAudio.duration
+        ){
 
-        return;
+          return;
+
+        }
+
+
+        const percentage =
+          Number(
+            songProgress.value
+          ) /
+          100;
+
+
+        currentAudio
+          .currentTime =
+          percentage *
+          currentAudio.duration;
+
       }
+    );
 
-
-      const percentage =
-        Number(
-          songProgress.value
-        ) / 100;
-
-
-      currentAudio.currentTime =
-        percentage *
-        currentAudio.duration;
-    }
-  );
 }
 
 
@@ -1803,21 +2215,29 @@ if (songProgress){
    NEXT / PREVIOUS
 ========================= */
 
-if (nextSongBtn){
+if (
+  nextSongBtn
+){
 
-  nextSongBtn.addEventListener(
-    "click",
-    playNextSong
-  );
+  nextSongBtn
+    .addEventListener(
+      "click",
+      playNextSong
+    );
+
 }
 
 
-if (prevSongBtn){
+if (
+  prevSongBtn
+){
 
-  prevSongBtn.addEventListener(
-    "click",
-    playPreviousSong
-  );
+  prevSongBtn
+    .addEventListener(
+      "click",
+      playPreviousSong
+    );
+
 }
 
 
@@ -1825,31 +2245,194 @@ if (prevSongBtn){
    SHUFFLE
 ========================= */
 
-if (shuffleBtn){
+if (
+  shuffleBtn
+){
 
-  shuffleBtn.addEventListener(
-    "click",
-    () => {
+  shuffleBtn
+    .addEventListener(
+      "click",
+      () => {
 
-      shuffleEnabled =
-        !shuffleEnabled;
+        shuffleEnabled =
+          !shuffleEnabled;
 
 
-      shuffleBtn
-        .classList
-        .toggle(
-          "is-active",
+        shuffleBtn
+          .classList
+          .toggle(
+            "is-active",
+            shuffleEnabled
+          );
+
+
+        shuffleBtn
+          .textContent =
           shuffleEnabled
-        );
+            ? "Shuffle On"
+            : "Shuffle";
+
+      }
+    );
+
+}
 
 
-      shuffleBtn.textContent =
-        shuffleEnabled
-          ? "Shuffle On"
-          : "Shuffle";
+/* =========================
+   GAME DAY GUIDE
+========================= */
+
+function openGuide(){
+
+  if (
+    !guideOverlay
+  ){
+
+    return;
+
+  }
+
+
+  guideOverlay
+    .classList
+    .add(
+      "is-open"
+    );
+
+
+  guideOverlay
+    .setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+
+  document.body
+    .style
+    .overflow =
+    "hidden";
+
+}
+
+
+function closeGuide(){
+
+  if (
+    !guideOverlay
+  ){
+
+    return;
+
+  }
+
+
+  guideOverlay
+    .classList
+    .remove(
+      "is-open"
+    );
+
+
+  guideOverlay
+    .setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+
+  document.body
+    .style
+    .overflow =
+    "";
+
+}
+
+
+if (
+  guideBtn
+){
+
+  guideBtn
+    .addEventListener(
+      "click",
+      openGuide
+    );
+
+}
+
+
+if (
+  guideCloseBtn
+){
+
+  guideCloseBtn
+    .addEventListener(
+      "click",
+      closeGuide
+    );
+
+}
+
+
+if (
+  guideDoneBtn
+){
+
+  guideDoneBtn
+    .addEventListener(
+      "click",
+      closeGuide
+    );
+
+}
+
+
+if (
+  guideOverlay
+){
+
+  guideOverlay
+    .addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          guideOverlay
+        ){
+
+          closeGuide();
+
+        }
+
+      }
+    );
+
+}
+
+
+document
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key ===
+          "Escape" &&
+        guideOverlay &&
+        guideOverlay
+          .classList
+          .contains(
+            "is-open"
+          )
+      ){
+
+        closeGuide();
+
+      }
+
     }
   );
-}
 
 
 /* =========================
@@ -1859,39 +2442,49 @@ if (shuffleBtn){
 function fullscreenSupported(){
 
   return !!(
-    document.documentElement
+    document
+      .documentElement
       .requestFullscreen ||
-    document.documentElement
+    document
+      .documentElement
       .webkitRequestFullscreen
   );
+
 }
 
 
 async function enterFullscreen(){
 
   const root =
-    document.documentElement;
+    document
+      .documentElement;
 
 
   try{
 
     if (
-      root.requestFullscreen
+      root
+        .requestFullscreen
     ){
 
-      await root.requestFullscreen();
+      await root
+        .requestFullscreen();
 
     }else if (
-      root.webkitRequestFullscreen
+      root
+        .webkitRequestFullscreen
     ){
 
-      root.webkitRequestFullscreen();
+      root
+        .webkitRequestFullscreen();
+
     }
 
   }catch{}
 
 
   refreshFixedOffsets();
+
 }
 
 
@@ -1900,57 +2493,78 @@ async function exitFullscreen(){
   try{
 
     if (
-      document.exitFullscreen
+      document
+        .exitFullscreen
     ){
 
-      await document.exitFullscreen();
+      await document
+        .exitFullscreen();
 
     }else if (
-      document.webkitExitFullscreen
+      document
+        .webkitExitFullscreen
     ){
 
-      document.webkitExitFullscreen();
+      document
+        .webkitExitFullscreen();
+
     }
 
   }catch{}
 
 
   refreshFixedOffsets();
+
 }
 
 
-if (fullscreenBtn){
+if (
+  fullscreenBtn
+){
 
-  if (!fullscreenSupported()){
+  if (
+    !fullscreenSupported()
+  ){
 
-    fullscreenBtn.style.display =
+    fullscreenBtn
+      .style
+      .display =
       "none";
 
   }else{
 
-    fullscreenBtn.addEventListener(
-      "click",
-      async () => {
+    fullscreenBtn
+      .addEventListener(
+        "click",
+        async () => {
 
-        const isFullscreen =
-          document.fullscreenElement ||
-          document.webkitFullscreenElement;
+          const isFullscreen =
+            document
+              .fullscreenElement ||
+            document
+              .webkitFullscreenElement;
 
 
-        if (!isFullscreen){
+          if (
+            !isFullscreen
+          ){
 
-          await enterFullscreen();
+            await enterFullscreen();
 
-        }else{
+          }else{
 
-          await exitFullscreen();
+            await exitFullscreen();
+
+          }
+
+
+          refreshFixedOffsets();
+
         }
+      );
 
-
-        refreshFixedOffsets();
-      }
-    );
   }
+
 }
 
 
