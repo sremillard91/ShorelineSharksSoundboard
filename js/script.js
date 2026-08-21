@@ -118,94 +118,92 @@ let shuffleEnabled =
    FULL SONG PLAYLIST
 ========================= */
 
-
-
 const playlist = [
 
   {
     title: "Cotton Eye Joe",
     artist: "Rednex",
     file: "CEJFull"
-  }
-  ,
+  },
+
   {
     title: "Party In The U.S.A.",
     artist: "Miley Cyrus",
     file: "Party In The U.S.A.Full"
-  }
-  ,
+  },
+
   {
     title: "Thunderstruck",
     artist: "AC/DC",
     file: "ThunderstruckFull"
-  }
-  ,
+  },
+
   {
     title: "Shake It Off",
     artist: "Taylor Swift",
     file: "Shake It OffFull"
-  }
-  ,
+  },
+
   {
     title: "Takedown",
     artist: "Huntrix - KPop Demon Hunters",
     file: "TakedownkpopFull"
-  }
-  ,
+  },
+
   {
     title: "Sweet Caroline",
     artist: "Neil Diamond",
     file: "SweetCarolineFull"
-  }
-  ,
+  },
+
   {
     title: "I'm Shipping Up To Boston",
     artist: "Dropkick Murphys",
     file: "I'm Shipping Up To Boston Full"
-  }
-  ,
+  },
+
   {
     title: "Lush Life",
     artist: "Zara Larsson",
     file: "Lush Life Full"
-  }
-  ,
+  },
+
   {
     title: "Centuries",
     artist: "Fall Out Boy",
     file: "CenturiesFull"
-  }
-  ,
+  },
+
   {
     title: "My House",
     artist: "Flo Rida",
     file: "My House Full"
-  }
-  ,
+  },
+
   {
     title: "I Gotta Feeling",
     artist: "The Black Eyed Peas",
     file: "I Gotta Feeling Full"
-  }
-  ,
+  },
+
   {
     title: "Man! I Feel Like A Woman",
     artist: "Shania Twain",
     file: "Man I Feel Like A WomanFull"
-  }
-  ,
+  },
+
   {
     title: "Beautiful Things",
     artist: "Benson Boone",
     file: "Beautiful Things Full"
-  }
-  ,
+  },
+
   {
     title: "Seven Nation Army",
     artist: "The White Stripes",
     file: "Seven Nation Army Full"
-  }
-  ,
+  },
+
   {
     title: "Unstoppable",
     artist: "Sia",
@@ -218,6 +216,10 @@ const playlist = [
 /* =========================
    FIXED HEADER HEIGHTS
 ========================= */
+
+let fixedOffsetTimer =
+  null;
+
 
 function updateFixedOffsets(){
 
@@ -234,73 +236,153 @@ function updateFixedOffsets(){
 
   if (topbar){
 
+    const topbarHeight =
+      Math.ceil(
+        topbar
+          .getBoundingClientRect()
+          .height
+      );
+
+
     document.documentElement
       .style
       .setProperty(
         "--topbar-h",
-        `${topbar.offsetHeight}px`
+        `${topbarHeight}px`
       );
   }
 
 
   if (controls){
 
+    const controlsHeight =
+      Math.ceil(
+        controls
+          .getBoundingClientRect()
+          .height
+      );
+
+
     document.documentElement
       .style
       .setProperty(
         "--controls-h",
-        `${controls.offsetHeight}px`
+        `${controlsHeight}px`
       );
   }
 }
 
 
-/*
-  Recalculate after the page
-  is fully loaded.
-*/
+/* =========================
+   REFRESH FIXED OFFSETS
+========================= */
+
+function refreshFixedOffsets(){
+
+  if (fixedOffsetTimer){
+
+    clearTimeout(
+      fixedOffsetTimer
+    );
+  }
+
+
+  updateFixedOffsets();
+
+
+  requestAnimationFrame(
+    () => {
+
+      updateFixedOffsets();
+
+
+      requestAnimationFrame(
+        updateFixedOffsets
+      );
+    }
+  );
+
+
+  setTimeout(
+    updateFixedOffsets,
+    50
+  );
+
+
+  setTimeout(
+    updateFixedOffsets,
+    150
+  );
+
+
+  setTimeout(
+    updateFixedOffsets,
+    300
+  );
+
+
+  fixedOffsetTimer =
+    setTimeout(
+      updateFixedOffsets,
+      600
+    );
+}
+
+
+/* =========================
+   FIXED BAR EVENTS
+========================= */
 
 window.addEventListener(
   "load",
-  () => {
-
-    updateFixedOffsets();
-
-    /*
-      Run once more after layout
-      finishes settling.
-    */
-
-    requestAnimationFrame(
-      updateFixedOffsets
-    );
-
-    setTimeout(
-      updateFixedOffsets,
-      100
-    );
-  }
+  refreshFixedOffsets
 );
 
-
-/*
-  Recalculate when screen
-  orientation or browser
-  window size changes.
-*/
 
 window.addEventListener(
   "resize",
-  updateFixedOffsets
+  refreshFixedOffsets
 );
 
 
-/*
-  ResizeObserver catches cases
-  where the controls themselves
-  change height because buttons
-  wrap differently.
-*/
+window.addEventListener(
+  "orientationchange",
+  refreshFixedOffsets
+);
+
+
+document.addEventListener(
+  "fullscreenchange",
+  refreshFixedOffsets
+);
+
+
+document.addEventListener(
+  "webkitfullscreenchange",
+  refreshFixedOffsets
+);
+
+
+if (window.visualViewport){
+
+  window.visualViewport
+    .addEventListener(
+      "resize",
+      refreshFixedOffsets
+    );
+
+
+  window.visualViewport
+    .addEventListener(
+      "scroll",
+      refreshFixedOffsets
+    );
+}
+
+
+/* =========================
+   RESIZE OBSERVER
+========================= */
 
 if ("ResizeObserver" in window){
 
@@ -308,7 +390,7 @@ if ("ResizeObserver" in window){
     new ResizeObserver(
       () => {
 
-        updateFixedOffsets();
+        refreshFixedOffsets();
       }
     );
 
@@ -317,6 +399,7 @@ if ("ResizeObserver" in window){
     document.querySelector(
       ".topbar"
     );
+
 
   const controls =
     document.querySelector(
@@ -338,6 +421,21 @@ if ("ResizeObserver" in window){
       controls
     );
   }
+}
+
+
+/* =========================
+   FONT LOADING
+========================= */
+
+if (
+  document.fonts &&
+  document.fonts.ready
+){
+
+  document.fonts.ready.then(
+    refreshFixedOffsets
+  );
 }
 
 
@@ -578,11 +676,6 @@ function renderPlaylist(){
       );
 
 
-      /*
-        Load only metadata to
-        determine track duration.
-      */
-
       const metadataAudio =
         new Audio(
           `audio/${song.file}.mp3`
@@ -713,12 +806,6 @@ function updatePlaylistHighlight(){
     }
   );
 
-
-  /*
-    Automatically keep the
-    active song visible inside
-    the playlist scroll area.
-  */
 
   const activeRow =
     document.querySelector(
@@ -960,10 +1047,6 @@ function playSound(
   name,
   buttonElement
 ){
-
-  /*
-    Prevent overlapping audio.
-  */
 
   stopCurrentAudio();
 
@@ -1483,12 +1566,6 @@ function playPreviousSong(){
   }
 
 
-  /*
-    If you're more than
-    3 seconds into the current
-    song, Previous restarts it.
-  */
-
   if (
     currentAudio &&
     currentSourceType ===
@@ -1647,12 +1724,6 @@ if (playlistPlayPauseBtn){
       "click",
       () => {
 
-        /*
-          If no playlist track
-          is active, start the
-          first track.
-        */
-
         if (
           currentSourceType !==
             "playlist" ||
@@ -1787,9 +1858,64 @@ if (shuffleBtn){
 
 function fullscreenSupported(){
 
-  return !!document
-    .documentElement
-    .requestFullscreen;
+  return !!(
+    document.documentElement
+      .requestFullscreen ||
+    document.documentElement
+      .webkitRequestFullscreen
+  );
+}
+
+
+async function enterFullscreen(){
+
+  const root =
+    document.documentElement;
+
+
+  try{
+
+    if (
+      root.requestFullscreen
+    ){
+
+      await root.requestFullscreen();
+
+    }else if (
+      root.webkitRequestFullscreen
+    ){
+
+      root.webkitRequestFullscreen();
+    }
+
+  }catch{}
+
+
+  refreshFixedOffsets();
+}
+
+
+async function exitFullscreen(){
+
+  try{
+
+    if (
+      document.exitFullscreen
+    ){
+
+      await document.exitFullscreen();
+
+    }else if (
+      document.webkitExitFullscreen
+    ){
+
+      document.webkitExitFullscreen();
+    }
+
+  }catch{}
+
+
+  refreshFixedOffsets();
 }
 
 
@@ -1806,24 +1932,22 @@ if (fullscreenBtn){
       "click",
       async () => {
 
-        try{
+        const isFullscreen =
+          document.fullscreenElement ||
+          document.webkitFullscreenElement;
 
-          if (
-            !document
-              .fullscreenElement
-          ){
 
-            await document
-              .documentElement
-              .requestFullscreen();
+        if (!isFullscreen){
 
-          }else{
+          await enterFullscreen();
 
-            await document
-              .exitFullscreen();
-          }
+        }else{
 
-        }catch{}
+          await exitFullscreen();
+        }
+
+
+        refreshFixedOffsets();
       }
     );
   }
@@ -1840,4 +1964,4 @@ resetPlaylistDisplay();
 
 setPlayPauseLabel();
 
-updateFixedOffsets();
+refreshFixedOffsets();
