@@ -26,7 +26,9 @@
        TOP HEADER
   ========================== -->
 
-  <header class="topbar">
+<header class="topbar">
+
+  <div class="topbar-inner">
 
     <div class="brand">
 
@@ -50,7 +52,19 @@
 
     </div>
 
-  </header>
+
+    <button
+      class="header-guide"
+      id="guideBtn"
+      type="button"
+      aria-label="Open Game Day Guide"
+    >
+      <span class="header-guide-text">Guide</span>
+    </button>
+
+  </div>
+
+</header>
 
 
   <!-- =========================
@@ -87,14 +101,6 @@
         Fullscreen
       </button>
 
-
-      <button
-        class="ctl"
-        id="guideBtn"
-        type="button"
-      >
-        ? Guide
-      </button>
 
 
       <label class="volume">
