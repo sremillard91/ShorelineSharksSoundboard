@@ -61,13 +61,18 @@ body{
 
   z-index: 1000;
 
+  width: 100%;
+
   padding:
-    env(safe-area-inset-top)
+    max(
+      env(safe-area-inset-top),
+      0px
+    )
     12px
     10px;
 
   background:
-    rgba(15,17,19,0.96);
+    rgba(15,17,19,0.98);
 
   backdrop-filter:
     blur(10px);
@@ -77,6 +82,9 @@ body{
 
   border-bottom:
     1px solid var(--border);
+
+  transform:
+    translateZ(0);
 }
 
 .brand{
@@ -141,7 +149,7 @@ body{
   width: 100%;
 
   background:
-    rgba(20,24,27,0.96);
+    rgba(20,24,27,0.98);
 
   backdrop-filter:
     blur(10px);
@@ -151,6 +159,9 @@ body{
 
   border-bottom:
     1px solid var(--border);
+
+  transform:
+    translateZ(0);
 }
 
 .controls-inner{
@@ -309,7 +320,8 @@ body{
 .board{
   max-width: 980px;
 
-  margin: 0 auto 18px;
+  margin:
+    0 auto 18px;
 
   padding:
     calc(
@@ -986,7 +998,6 @@ body{
   color:
     #ffffff;
 }
-
 
 @media (hover: hover){
 
