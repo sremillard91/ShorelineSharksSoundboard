@@ -6,16 +6,24 @@ const pads =
   document.querySelectorAll(".pad");
 
 const volumeSlider =
-  document.getElementById("volumeSlider");
+  document.getElementById(
+    "volumeSlider"
+  );
 
 const stopAllBtn =
-  document.getElementById("stopAllBtn");
+  document.getElementById(
+    "stopAllBtn"
+  );
 
 const playPauseBtn =
-  document.getElementById("playPauseBtn");
+  document.getElementById(
+    "playPauseBtn"
+  );
 
 const fullscreenBtn =
-  document.getElementById("fullscreenBtn");
+  document.getElementById(
+    "fullscreenBtn"
+  );
 
 
 /* =========================
@@ -23,31 +31,49 @@ const fullscreenBtn =
 ========================= */
 
 const playlistEl =
-  document.getElementById("playlist");
+  document.getElementById(
+    "playlist"
+  );
 
 const playlistCount =
-  document.getElementById("playlistCount");
+  document.getElementById(
+    "playlistCount"
+  );
 
 const nowPlayingTitle =
-  document.getElementById("nowPlayingTitle");
+  document.getElementById(
+    "nowPlayingTitle"
+  );
 
 const nowPlayingArtist =
-  document.getElementById("nowPlayingArtist");
+  document.getElementById(
+    "nowPlayingArtist"
+  );
 
 const currentTimeEl =
-  document.getElementById("currentTime");
+  document.getElementById(
+    "currentTime"
+  );
 
 const durationEl =
-  document.getElementById("duration");
+  document.getElementById(
+    "duration"
+  );
 
 const songProgress =
-  document.getElementById("songProgress");
+  document.getElementById(
+    "songProgress"
+  );
 
 const prevSongBtn =
-  document.getElementById("prevSongBtn");
+  document.getElementById(
+    "prevSongBtn"
+  );
 
 const nextSongBtn =
-  document.getElementById("nextSongBtn");
+  document.getElementById(
+    "nextSongBtn"
+  );
 
 const playlistPlayPauseBtn =
   document.getElementById(
@@ -55,7 +81,9 @@ const playlistPlayPauseBtn =
   );
 
 const shuffleBtn =
-  document.getElementById("shuffleBtn");
+  document.getElementById(
+    "shuffleBtn"
+  );
 
 
 /* =========================
@@ -67,23 +95,47 @@ let activeAudios = [];
 let activeButtons =
   new Set();
 
-let currentAudio = null;
+let currentAudio =
+  null;
 
-let currentButton = null;
+let currentButton =
+  null;
 
-let currentSourceType = null;
+let currentSourceType =
+  null;
 
 
-/* Playlist */
+/* Playlist state */
 
-let currentPlaylistIndex = -1;
+let currentPlaylistIndex =
+  -1;
 
-let shuffleEnabled = false;
+let shuffleEnabled =
+  false;
 
 
 /* =========================
    FULL SONG PLAYLIST
 ========================= */
+
+/*
+  Add full songs here.
+
+  "file" is the filename
+  WITHOUT .mp3.
+
+  Example:
+
+  {
+    title: "Thunderstruck",
+    artist: "AC/DC",
+    file: "Thunderstruck"
+  }
+
+  MP3 location:
+
+  audio/Thunderstruck.mp3
+*/
 
 const playlist = [
 
@@ -92,123 +144,143 @@ const playlist = [
     artist: "Rednex",
     file: "CEJFull"
   }
-  ,
-  {
-    title: "Party In The U.S.A.",
-    artist: "Miley Cyrus",
-    file: "Party In The U.S.A.Full"
-  }
+
+  /*
   ,
   {
     title: "Thunderstruck",
     artist: "AC/DC",
-    file: "ThunderstruckFull"
+    file: "Thunderstruck"
   }
-  ,
-  {
-    title: "Shake It Off",
-    artist: "Taylor Swift",
-    file: "Shake It OffFull"
-  }
-  ,
-  {
-    title: "Takedown",
-    artist: "Huntrix - KPop Demon Hunters",
-    file: "TakedownkpopFull"
-  }
-  ,
-  {
-    title: "Sweet Caroline",
-    artist: "Neil Diamond",
-    file: "SweetCarolineFull"
-  }
-  ,
-  {
-    title: "I'm Shipping Up To Boston",
-    artist: "Dropkick Murphys",
-    file: "I'm Shipping Up To Boston Full"
-  }
-  ,
-  {
-    title: "Lush Life",
-    artist: "Zara Larsson",
-    file: "Lush Life Full"
-  }
-  ,
-  {
-    title: "Centuries",
-    artist: "Fall Out Boy",
-    file: "CenturiesFull"
-  }
-  ,
-  {
-    title: "My House",
-    artist: "Flo Rida",
-    file: "My House Full"
-  }
-  ,
-  {
-    title: "I Gotta Feeling",
-    artist: "The Black Eyed Peas",
-    file: "I Gotta Feeling Full"
-  }
-  ,
-  {
-    title: "Man! I Feel Like A Woman",
-    artist: "Shania Twain",
-    file: "Man I Feel Like A WomanFull"
-  }
-  ,
-  {
-    title: "Beautiful Things",
-    artist: "Benson Boone",
-    file: "Beautiful Things Full"
-  }
-  ,
-  {
-    title: "Seven Nation Army",
-    artist: "The White Stripes",
-    file: "Seven Nation Army Full"
-  }
-  ,
-  {
-    title: "Unstoppable",
-    artist: "Sia",
-    file: "UnstoppableFull"
-  }
+  */
+
 ];
 
 
 /* =========================
-   STICKY HEADER
+   FIXED HEADER HEIGHTS
 ========================= */
 
-function updateStickyOffsets(){
+function updateFixedOffsets(){
 
   const topbar =
-    document.querySelector(".topbar");
+    document.querySelector(
+      ".topbar"
+    );
 
-  if (!topbar){
-    return;
+  const controls =
+    document.querySelector(
+      ".controls"
+    );
+
+
+  if (topbar){
+
+    document.documentElement
+      .style
+      .setProperty(
+        "--topbar-h",
+        `${topbar.offsetHeight}px`
+      );
   }
 
-  document.documentElement
-    .style
-    .setProperty(
-      "--topbar-h",
-      `${topbar.offsetHeight}px`
-    );
+
+  if (controls){
+
+    document.documentElement
+      .style
+      .setProperty(
+        "--controls-h",
+        `${controls.offsetHeight}px`
+      );
+  }
 }
+
+
+/*
+  Recalculate after the page
+  is fully loaded.
+*/
 
 window.addEventListener(
   "load",
-  updateStickyOffsets
+  () => {
+
+    updateFixedOffsets();
+
+    /*
+      Run once more after layout
+      finishes settling.
+    */
+
+    requestAnimationFrame(
+      updateFixedOffsets
+    );
+
+    setTimeout(
+      updateFixedOffsets,
+      100
+    );
+  }
 );
+
+
+/*
+  Recalculate when screen
+  orientation or browser
+  window size changes.
+*/
 
 window.addEventListener(
   "resize",
-  updateStickyOffsets
+  updateFixedOffsets
 );
+
+
+/*
+  ResizeObserver catches cases
+  where the controls themselves
+  change height because buttons
+  wrap differently.
+*/
+
+if ("ResizeObserver" in window){
+
+  const fixedResizeObserver =
+    new ResizeObserver(
+      () => {
+
+        updateFixedOffsets();
+      }
+    );
+
+
+  const topbar =
+    document.querySelector(
+      ".topbar"
+    );
+
+  const controls =
+    document.querySelector(
+      ".controls"
+    );
+
+
+  if (topbar){
+
+    fixedResizeObserver.observe(
+      topbar
+    );
+  }
+
+
+  if (controls){
+
+    fixedResizeObserver.observe(
+      controls
+    );
+  }
+}
 
 
 /* =========================
@@ -218,26 +290,37 @@ window.addEventListener(
 function formatTime(seconds){
 
   if (!Number.isFinite(seconds)){
+
     return "0:00";
   }
 
+
   const minutes =
-    Math.floor(seconds / 60);
+    Math.floor(
+      seconds / 60
+    );
+
 
   const remainingSeconds =
-    Math.floor(seconds % 60);
+    Math.floor(
+      seconds % 60
+    );
+
 
   return (
     `${minutes}:` +
     remainingSeconds
       .toString()
-      .padStart(2, "0")
+      .padStart(
+        2,
+        "0"
+      )
   );
 }
 
 
 /* =========================
-   MASTER PLAY/PAUSE LABEL
+   MASTER PLAY / PAUSE LABEL
 ========================= */
 
 function setPlayPauseLabel(){
@@ -259,6 +342,7 @@ function setPlayPauseLabel(){
     }
   }
 
+
   updatePlaylistPlayButton();
 }
 
@@ -270,35 +354,43 @@ function setPlayPauseLabel(){
 function updatePlaylistPlayButton(){
 
   if (!playlistPlayPauseBtn){
+
     return;
   }
 
+
   if (
     currentAudio &&
-    currentSourceType === "playlist" &&
+    currentSourceType ===
+      "playlist" &&
     !currentAudio.paused
   ){
 
-    playlistPlayPauseBtn.textContent =
+    playlistPlayPauseBtn
+      .textContent =
       "❚❚";
 
-    playlistPlayPauseBtn.setAttribute(
-      "aria-label",
-      "Pause song"
-    );
+
+    playlistPlayPauseBtn
+      .setAttribute(
+        "aria-label",
+        "Pause song"
+      );
 
   }else{
 
-    playlistPlayPauseBtn.textContent =
+    playlistPlayPauseBtn
+      .textContent =
       "▶";
 
-    playlistPlayPauseBtn.setAttribute(
-      "aria-label",
-      "Play song"
-    );
+
+    playlistPlayPauseBtn
+      .setAttribute(
+        "aria-label",
+        "Play song"
+      );
   }
 }
-
 
 
 /* =========================
@@ -311,14 +403,17 @@ function setPlaying(
 ){
 
   if (!button){
+
     return;
   }
+
 
   if (isPlaying){
 
     button.classList.add(
       "is-playing"
     );
+
 
     activeButtons.add(
       button
@@ -329,6 +424,7 @@ function setPlaying(
     button.classList.remove(
       "is-playing"
     );
+
 
     activeButtons.delete(
       button
@@ -344,10 +440,14 @@ function setPlaying(
 function renderPlaylist(){
 
   if (!playlistEl){
+
     return;
   }
 
-  playlistEl.innerHTML = "";
+
+  playlistEl.innerHTML =
+    "";
+
 
   playlist.forEach(
     (song, index) => {
@@ -357,26 +457,39 @@ function renderPlaylist(){
           "button"
         );
 
-      button.type = "button";
+
+      button.type =
+        "button";
+
 
       button.className =
         "playlist-song";
 
+
       button.dataset.index =
         index;
 
+
       button.innerHTML = `
-        <span class="playlist-song-number">
+        <span
+          class="playlist-song-number"
+        >
           ${index + 1}
         </span>
 
-        <span class="playlist-song-info">
+        <span
+          class="playlist-song-info"
+        >
 
-          <span class="playlist-song-title">
+          <span
+            class="playlist-song-title"
+          >
             ${song.title}
           </span>
 
-          <span class="playlist-song-artist">
+          <span
+            class="playlist-song-artist"
+          >
             ${song.artist}
           </span>
 
@@ -390,11 +503,6 @@ function renderPlaylist(){
         </span>
       `;
 
-
-      /*
-        Clicking any row immediately
-        starts that song.
-      */
 
       button.addEventListener(
         "click",
@@ -413,11 +521,8 @@ function renderPlaylist(){
 
 
       /*
-        Create a temporary audio object
-        that only loads metadata.
-
-        This lets the page discover the
-        song length automatically.
+        Load only metadata to
+        determine track duration.
       */
 
       const metadataAudio =
@@ -425,53 +530,54 @@ function renderPlaylist(){
           `audio/${song.file}.mp3`
         );
 
+
       metadataAudio.preload =
         "metadata";
 
 
-      metadataAudio.addEventListener(
-        "loadedmetadata",
-        () => {
+      metadataAudio
+        .addEventListener(
+          "loadedmetadata",
+          () => {
 
-          const display =
-            document.getElementById(
-              `playlist-duration-${index}`
-            );
+            const display =
+              document
+                .getElementById(
+                  `playlist-duration-${index}`
+                );
 
-          if (display){
 
-            display.textContent =
-              formatTime(
-                metadataAudio.duration
-              );
+            if (display){
+
+              display.textContent =
+                formatTime(
+                  metadataAudio
+                    .duration
+                );
+            }
           }
-        }
-      );
+        );
 
 
-      /*
-        If an MP3 doesn't exist,
-        leave duration blank rather
-        than throwing a visible error.
-      */
+      metadataAudio
+        .addEventListener(
+          "error",
+          () => {
 
-      metadataAudio.addEventListener(
-        "error",
-        () => {
+            const display =
+              document
+                .getElementById(
+                  `playlist-duration-${index}`
+                );
 
-          const display =
-            document.getElementById(
-              `playlist-duration-${index}`
-            );
 
-          if (display){
+            if (display){
 
-            display.textContent =
-              "--:--";
+              display.textContent =
+                "--:--";
+            }
           }
-        }
-      );
-
+        );
     }
   );
 
@@ -489,7 +595,7 @@ function renderPlaylist(){
 
 
 /* =========================
-   UPDATE PLAYLIST HIGHLIGHT
+   PLAYLIST HIGHLIGHT
 ========================= */
 
 function updatePlaylistHighlight(){
@@ -527,6 +633,7 @@ function updatePlaylistHighlight(){
 
 
       if (!number){
+
         return;
       }
 
@@ -550,10 +657,9 @@ function updatePlaylistHighlight(){
 
 
   /*
-    If Next / Previous / Shuffle
-    changes the song, automatically
-    keep the active song visible
-    inside the playlist scrollbar.
+    Automatically keep the
+    active song visible inside
+    the playlist scroll area.
   */
 
   const activeRow =
@@ -561,12 +667,51 @@ function updatePlaylistHighlight(){
       ".playlist-song.is-playing"
     );
 
-  if (activeRow){
 
-    activeRow.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest"
-    });
+  if (
+    activeRow &&
+    playlistEl
+  ){
+
+    const rowTop =
+      activeRow.offsetTop;
+
+
+    const rowBottom =
+      rowTop +
+      activeRow.offsetHeight;
+
+
+    const viewTop =
+      playlistEl.scrollTop;
+
+
+    const viewBottom =
+      viewTop +
+      playlistEl.clientHeight;
+
+
+    if (
+      rowTop < viewTop
+    ){
+
+      playlistEl.scrollTo({
+        top: rowTop,
+        behavior: "smooth"
+      });
+
+    }else if (
+      rowBottom > viewBottom
+    ){
+
+      playlistEl.scrollTo({
+        top:
+          rowBottom -
+          playlistEl.clientHeight,
+        behavior:
+          "smooth"
+      });
+    }
   }
 }
 
@@ -577,7 +722,8 @@ function updatePlaylistHighlight(){
 
 function resetPlaylistDisplay(){
 
-  currentPlaylistIndex = -1;
+  currentPlaylistIndex =
+    -1;
 
 
   if (nowPlayingTitle){
@@ -610,7 +756,8 @@ function resetPlaylistDisplay(){
 
   if (songProgress){
 
-    songProgress.value = 0;
+    songProgress.value =
+      0;
   }
 
 
@@ -621,10 +768,12 @@ function resetPlaylistDisplay(){
 
 
 /* =========================
-   REMOVE AUDIO FROM ACTIVE LIST
+   REMOVE ACTIVE AUDIO
 ========================= */
 
-function removeActiveAudio(audio){
+function removeActiveAudio(
+  audio
+){
 
   activeAudios =
     activeAudios.filter(
@@ -643,6 +792,7 @@ function stopCurrentAudio(
 ){
 
   if (!currentAudio){
+
     return;
   }
 
@@ -654,6 +804,7 @@ function stopCurrentAudio(
   try{
 
     audioToStop.pause();
+
 
     if (resetTime){
 
@@ -678,9 +829,12 @@ function stopCurrentAudio(
   );
 
 
-  currentAudio = null;
+  currentAudio =
+    null;
 
-  currentButton = null;
+
+  currentButton =
+    null;
 }
 
 
@@ -705,7 +859,8 @@ function stopAllSounds(){
   );
 
 
-  activeAudios = [];
+  activeAudios =
+    [];
 
 
   activeButtons.forEach(
@@ -721,11 +876,16 @@ function stopAllSounds(){
   activeButtons.clear();
 
 
-  currentAudio = null;
+  currentAudio =
+    null;
 
-  currentButton = null;
 
-  currentSourceType = null;
+  currentButton =
+    null;
+
+
+  currentSourceType =
+    null;
 
 
   resetPlaylistDisplay();
@@ -744,11 +904,7 @@ function playSound(
 ){
 
   /*
-    No audio overlap.
-
-    If a full song is playing,
-    hitting a goal horn, penalty
-    song, or short clip stops it.
+    Prevent overlapping audio.
   */
 
   stopCurrentAudio();
@@ -756,6 +912,7 @@ function playSound(
 
   currentPlaylistIndex =
     -1;
+
 
   currentSourceType =
     "soundboard";
@@ -771,13 +928,16 @@ function playSound(
 
 
   audio.volume =
-    Number(
-      volumeSlider.value
-    );
+    volumeSlider
+      ? Number(
+          volumeSlider.value
+        )
+      : 1;
 
 
   currentAudio =
     audio;
+
 
   currentButton =
     buttonElement;
@@ -822,8 +982,10 @@ function playSound(
         currentAudio =
           null;
 
+
         currentButton =
           null;
+
 
         currentSourceType =
           null;
@@ -836,17 +998,51 @@ function playSound(
 
 
   audio.addEventListener(
-    "pause",
-    () => {
-
-      setPlayPauseLabel();
-    }
+    "play",
+    setPlayPauseLabel
   );
 
 
   audio.addEventListener(
-    "play",
+    "pause",
+    setPlayPauseLabel
+  );
+
+
+  audio.addEventListener(
+    "error",
     () => {
+
+      if (buttonElement){
+
+        setPlaying(
+          buttonElement,
+          false
+        );
+      }
+
+
+      removeActiveAudio(
+        audio
+      );
+
+
+      if (
+        currentAudio === audio
+      ){
+
+        currentAudio =
+          null;
+
+
+        currentButton =
+          null;
+
+
+        currentSourceType =
+          null;
+      }
+
 
       setPlayPauseLabel();
     }
@@ -874,11 +1070,18 @@ function playSound(
         }
 
 
+        removeActiveAudio(
+          audio
+        );
+
+
         currentAudio =
           null;
 
+
         currentButton =
           null;
+
 
         currentSourceType =
           null;
@@ -894,22 +1097,22 @@ function playSound(
    PLAY FULL SONG
 ========================= */
 
-function playPlaylistSong(index){
+function playPlaylistSong(
+  index
+){
 
   if (!playlist[index]){
+
     return;
   }
 
-
-  /*
-    Stop whatever is currently playing.
-  */
 
   stopCurrentAudio();
 
 
   currentPlaylistIndex =
     index;
+
 
   currentSourceType =
     "playlist";
@@ -926,13 +1129,16 @@ function playPlaylistSong(index){
 
 
   audio.volume =
-    Number(
-      volumeSlider.value
-    );
+    volumeSlider
+      ? Number(
+          volumeSlider.value
+        )
+      : 1;
 
 
   currentAudio =
     audio;
+
 
   currentButton =
     null;
@@ -942,8 +1148,6 @@ function playPlaylistSong(index){
     audio
   );
 
-
-  /* Now Playing */
 
   if (nowPlayingTitle){
 
@@ -983,8 +1187,6 @@ function playPlaylistSong(index){
   updatePlaylistHighlight();
 
 
-  /* Song metadata */
-
   audio.addEventListener(
     "loadedmetadata",
     () => {
@@ -1000,13 +1202,12 @@ function playPlaylistSong(index){
   );
 
 
-  /* Progress bar */
-
   audio.addEventListener(
     "timeupdate",
     () => {
 
       if (!audio.duration){
+
         return;
       }
 
@@ -1032,8 +1233,6 @@ function playPlaylistSong(index){
   );
 
 
-  /* Playing */
-
   audio.addEventListener(
     "play",
     () => {
@@ -1044,8 +1243,6 @@ function playPlaylistSong(index){
     }
   );
 
-
-  /* Paused */
 
   audio.addEventListener(
     "pause",
@@ -1058,8 +1255,6 @@ function playPlaylistSong(index){
   );
 
 
-  /* Automatically advance */
-
   audio.addEventListener(
     "ended",
     () => {
@@ -1068,11 +1263,6 @@ function playPlaylistSong(index){
         audio
       );
 
-
-      /*
-        Only advance if this is still
-        the current audio object.
-      */
 
       if (
         currentAudio === audio
@@ -1087,8 +1277,6 @@ function playPlaylistSong(index){
     }
   );
 
-
-  /* Missing/bad file */
 
   audio.addEventListener(
     "error",
@@ -1105,6 +1293,7 @@ function playPlaylistSong(index){
 
         currentAudio =
           null;
+
 
         currentSourceType =
           null;
@@ -1144,6 +1333,7 @@ function playPlaylistSong(index){
           currentAudio =
             null;
 
+
           currentSourceType =
             null;
         }
@@ -1164,16 +1354,13 @@ function playPlaylistSong(index){
 function playNextSong(){
 
   if (!playlist.length){
+
     return;
   }
 
 
   let nextIndex;
 
-
-  /*
-    Shuffle
-  */
 
   if (
     shuffleEnabled &&
@@ -1195,15 +1382,12 @@ function playNextSong(){
 
   }else{
 
-    /*
-      Normal sequential playback
-    */
-
     if (
       currentPlaylistIndex < 0
     ){
 
-      nextIndex = 0;
+      nextIndex =
+        0;
 
     }else{
 
@@ -1212,16 +1396,13 @@ function playNextSong(){
     }
 
 
-    /*
-      Loop playlist
-    */
-
     if (
       nextIndex >=
       playlist.length
     ){
 
-      nextIndex = 0;
+      nextIndex =
+        0;
     }
   }
 
@@ -1239,16 +1420,15 @@ function playNextSong(){
 function playPreviousSong(){
 
   if (!playlist.length){
+
     return;
   }
 
 
   /*
-    Standard media player behavior:
-
-    If you're more than 3 seconds
-    into a song, Previous restarts
-    the current song.
+    If you're more than
+    3 seconds into the current
+    song, Previous restarts it.
   */
 
   if (
@@ -1260,6 +1440,7 @@ function playPreviousSong(){
 
     currentAudio.currentTime =
       0;
+
 
     return;
   }
@@ -1273,7 +1454,8 @@ function playPreviousSong(){
     currentPlaylistIndex < 0
   ){
 
-    previousIndex = 0;
+    previousIndex =
+      0;
   }
 
 
@@ -1293,7 +1475,7 @@ function playPreviousSong(){
 
 
 /* =========================
-   SOUNDBOARD PAD EVENTS
+   SOUND PAD EVENTS
 ========================= */
 
 pads.forEach(
@@ -1321,7 +1503,7 @@ pads.forEach(
 
 
 /* =========================
-   STOP ALL BUTTON
+   STOP ALL
 ========================= */
 
 if (stopAllBtn){
@@ -1372,6 +1554,7 @@ if (playPauseBtn){
     () => {
 
       if (!currentAudio){
+
         return;
       }
 
@@ -1407,9 +1590,9 @@ if (playlistPlayPauseBtn){
       () => {
 
         /*
-          If a playlist song isn't
-          currently selected, start
-          the first song.
+          If no playlist track
+          is active, start the
+          first track.
         */
 
         if (
@@ -1427,6 +1610,7 @@ if (playlistPlayPauseBtn){
           playPlaylistSong(
             indexToPlay
           );
+
 
           return;
         }
@@ -1452,7 +1636,7 @@ if (playlistPlayPauseBtn){
 
 
 /* =========================
-   SEEK / SCRUB BAR
+   SEEK BAR
 ========================= */
 
 if (songProgress){
@@ -1487,7 +1671,7 @@ if (songProgress){
 
 
 /* =========================
-   NEXT BUTTON
+   NEXT / PREVIOUS
 ========================= */
 
 if (nextSongBtn){
@@ -1498,10 +1682,6 @@ if (nextSongBtn){
   );
 }
 
-
-/* =========================
-   PREVIOUS BUTTON
-========================= */
 
 if (prevSongBtn){
 
@@ -1601,3 +1781,5 @@ renderPlaylist();
 resetPlaylistDisplay();
 
 setPlayPauseLabel();
+
+updateFixedOffsets();
